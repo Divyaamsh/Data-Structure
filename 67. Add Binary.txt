@@ -1,0 +1,92 @@
+class Solution {
+public:
+    void check(string a,int asize,string b,int sizeb,string &result){
+              char carry = '0'; 
+              int i = asize-1;
+              int j = sizeb-1;
+        
+              while(j>-1 && i>-1){
+                  if(a[i] == '1' && b[j] == '1' && carry == '1'){
+                     result = result + '1';
+                     carry = '1';
+                     i--;
+                     j--; 
+                     continue;
+                  }
+                  if(a[i] == '1' && b[j] == '1' && carry == '0'){
+                     result = result + '0';
+                     carry = '1';
+                     i--;
+                     j--;  
+                     continue;
+                  }
+                  if(a[i] == '0' && b[j] == '0' && carry == '1' ){
+                     result = result + '1';
+                     carry = '0'; 
+                     i--;
+                     j--; 
+                     continue;
+                  }
+                  if( (a[i] == '1' || b[j] == '1') && carry == '1'){
+                     result = result + '0';
+                     carry = '1'; 
+                     i--;
+                     j--;   
+                     continue;
+                  }
+                  if( (a[i] == '1' || b[j] == '1') && carry == '0'){
+                     result = result + '1';
+                     carry = '0'; 
+                     i--;
+                     j--;   
+                     continue;
+                  }
+                  
+                  result = result + '0';
+                  carry = '0'; 
+                  i--;
+                  j--; 
+                  
+              }
+              
+              for(int l=i; l>-1; l--){
+                 if(a[l] == '1' && carry == '1'){
+                    result = result + '0';
+                    carry = '1'; 
+                    continue; 
+                 }
+                 if(a[l] == '1' || carry == '1'){
+                    result = result + '1';
+                    carry = '0'; 
+                    continue; 
+                 }
+                 result = result + '0';
+                 carry = '0'; 
+              }  
+        
+              if(carry == '1'){
+                result = result + '1'; 
+              }
+             
+    }
+    
+    string addBinary(string a, string b) {
+              int sizea = a.size();
+              int sizeb = b.size();
+              
+              string result = "";
+              
+              if(sizea > sizeb){
+                 check(a,sizea,b,sizeb,result);  
+              }
+              else{ 
+                 check(b,sizeb,a,sizea,result);  
+              }
+         
+              reverse(result.begin(),result.end());
+        
+              return result;        
+    
+    }
+};
+

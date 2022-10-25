@@ -1,0 +1,67 @@
+class Solution {
+        int check(vector<vector<int>>& board,int sizeC,int sizeR,int j,int i){
+                 if(i < 0 || j < 0 || i > sizeR-1 || j > sizeC-1){
+                    return 0; 
+                 }   
+                 return board[i][j];
+                   
+        }
+    
+        void convert(vector<vector<int>>& board,int i,int j,int sizeR,int sizeC,vector<pair<int,int>> &visited){
+                    
+                    int left = check(board,sizeC,sizeR,j-1,i-1);
+                    int leftUp = check(board,sizeC,sizeR,j-1,i); 
+                    int leftDo = check(board,sizeC,sizeR,j-1,i+1);
+                    int rightUp = check(board,sizeC,sizeR,j,i+1);
+                    int rightDo = check(board,sizeC,sizeR,j+1,i+1);
+                    int right = check(board,sizeC,sizeR,j+1,i);
+                    int up = check(board,sizeC,sizeR,j+1,i-1);
+                    int down = check(board,sizeC,sizeR,j,i-1);
+                   
+            
+                    int res = left + leftUp + leftDo + rightUp + rightDo + right + up + down;
+                            
+            
+                    if( (res > 3 || res < 2) && board[i][j] == 1){
+                       pair <int,int> p(i,j);
+                       visited.push_back(p); 
+                    }
+                    if(res == 3 && board[i][j] == 0){
+                       pair <int,int> p(i,j);
+                       visited.push_back(p);  
+                    }
+                     
+                    
+        }                         
+    
+    
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+                   int sizeC = board.size();
+                   int sizeR = board[0].size();
+                   
+                   vector<pair<int,int>> visited;
+                   for(int i=0; i<sizeC; i++){
+                       for(int j=0; j<sizeR; j++){
+                           convert(board,i,j,sizeC,sizeR,visited);
+                       }
+                   } 
+                   
+                   int size = visited.size();                  
+                   for(int i=0; i<size; i++){
+                       int first = visited[i].first;
+                       int second = visited[i].second;
+                       
+                       if(board[first][second] == 1){
+                          board[first][second] = 0;
+                          continue; 
+                       }
+                       board[first][second] = 1;
+                   
+                   }
+                    
+                   
+    }
+};
+
+

@@ -1,0 +1,22 @@
+#include <queue>
+class Solution {
+        string check(string qq,int i){
+                     qq.erase(i,1);
+                     return qq;
+        }
+         
+public:
+    string removeDigit(string number, char digit) {
+                      int size = number.size();  
+                      priority_queue <string> pq;
+                          
+                      for(int i=0; i<size; i++){
+                          if(number[i] == digit){
+                             string res = check(number,i);
+                             pq.push(res); 
+                          }
+                      }    
+        
+                      return pq.top();
+    }
+};

@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int garbageCollection(vector<string>& garbage, vector<int>& travel) {
+               int garbageSize = garbage.size(); 
+               int travelSize = travel.size();       
+                
+               int result = 0;
+               int count = 0;
+               int Glassi = -2;
+               int Paperi = -2;
+               int Metali = -2;
+               int sG = 0;
+               int sP = 0; 
+               int sM = 0;
+               
+               for(int i=0; i<garbageSize; i++){
+                   count = count + garbage[i].size();
+               }  
+        
+               for(int i=garbageSize-1; i>-1; i--){
+                   string s = garbage[i];
+                   int ssize = s.size();
+                   
+                   if(Glassi != -2 && Paperi != -2 && Metali != -2){
+                      break;   
+                   }
+                   
+                   for(int j=0; j<ssize; j++){
+                       if(s[j] == 'G' && Glassi == -2){
+                          Glassi = i-1; 
+                       } 
+                       if(s[j] == 'M' && Metali == -2){
+                          Metali = i-1; 
+                       }
+                       if(s[j] == 'P' && Paperi == -2){ 
+                          Paperi = i-1; 
+                       } 
+                   }
+               }
+        
+               int sum = 0; 
+               for(int i=0; i<travelSize; i++){
+                   sum = sum + travel[i];
+                   if(i == Glassi){
+                      sG = sum; 
+                   }
+                   if(i == Metali){
+                      sM = sum; 
+                   }
+                   if(i == Paperi){
+                      sP = sum; 
+                   }
+               } 
+               //cout << count << " " << sG << " " << sP << " " << sM;
+         
+               result = count + sG + sP + sM;
+               return result; 
+              
+    }
+};
+
+

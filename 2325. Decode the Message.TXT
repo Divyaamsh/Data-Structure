@@ -1,0 +1,48 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    string decodeMessage(string key, string message) {
+                 unordered_map <char,char> ourmap;
+                 
+                 int sizeKey = key.size(); 
+                 int messageKey = message.size();         
+                  
+                 char h = 'a';
+                 int count = 0; 
+        
+                 for(int i=0; i<sizeKey; i++){
+                     if(count == 26){
+                        break;
+                     }
+                     if(key[i] == ' '){
+                        continue; 
+                     }
+                     
+                     if(ourmap.count(key[i]) > 0){
+                        continue; 
+                     }
+                     
+                     pair <char,char> p(key[i],h);
+                     ourmap.insert(p);
+                     
+                     h++;
+                     count++;
+                     
+                 }        
+                 
+                 pair <char,char> p(' ',' ');
+                 ourmap.insert(p);
+                  
+                 string result = "";
+                 
+                 for(int i=0; i<messageKey; i++){
+                     result = result + ourmap[message[i]];
+                 }        
+        
+                 return result; 
+        
+    }
+};
+
+

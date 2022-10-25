@@ -1,0 +1,31 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& arr) {
+               sort(arr.begin(),arr.end());
+               int size = arr.size();
+               int maxN = 1;
+               int count = 1;
+               if(size == 0){
+                  return 0; 
+               } 
+               
+               for(int i=0; i<size-1; i++){
+                   if(arr[i+1] - arr[i] == 0){
+                      continue; 
+                   }
+                   if(arr[i+1] - arr[i] != 1){
+                      maxN = max(maxN,count);
+                      count = 1;
+                      continue; 
+                   } 
+                   count++; 
+               }
+               maxN = max(maxN,count);
+        
+               return maxN;
+        
+    }
+};
+

@@ -1,0 +1,27 @@
+class Solution {
+ void check(vector<int> &nums,int size,int i,vector<int> ans,vector<vector<int>> &result){
+           if(i == size){
+              result.push_back(ans);
+              return; 
+           }
+     
+           check(nums,size,i+1,ans,result);     
+           ans.push_back(nums[i]);
+           check(nums,size,i+1,ans,result);     
+     
+ }      
+    
+    
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+                               int size = nums.size();
+                               vector<vector<int>> result;
+                               vector<int> ans;
+                               
+                               check(nums,size,0,ans,result);
+                               
+                               return result;                       
+        
+    }
+};
+

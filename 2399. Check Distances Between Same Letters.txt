@@ -1,0 +1,38 @@
+class Solution {
+        int search(string s,int size,char ch){
+                  int start = size-1;
+                  while(start > -1){
+                        if(s[start] == ch){
+                           return start; 
+                        }
+                        start--; 
+                  }
+                  return start;
+        }
+    
+public:
+    bool checkDistances(string s, vector<int>& distance) {
+                       int size = s.size();
+                       int visited[26] = {0};                       
+                                      
+                       for(int i=0; i<size; i++){
+                           int h = s[i] - 97;
+                           if(visited[h] == 1){
+                              continue; 
+                           }
+                           visited[h] = 1; 
+                           int last = search(s,size,s[i]);
+                           int res = last - i - 1;
+                           cout << s[i] << " " << res << endl;
+                           
+                           if(res != distance[h]){
+                              return false; 
+                           }
+                           
+                       }
+                           
+                       return true;                   
+        
+    }
+};
+

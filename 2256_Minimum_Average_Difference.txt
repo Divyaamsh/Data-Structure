@@ -1,0 +1,48 @@
+class Solution {
+public:
+    int minimumAverageDifference(vector<int>& nums) {
+               int size = nums.size();
+               long long sumL = nums[0];
+               long long sumR = 0;
+               int i = 1;
+               int j = size-1;
+               int start = 0;
+               long long Finalres = INT_MAX;
+               int finalAns = 0;
+                
+               for(int i=1; i<size; i++){
+                   sumR = sumR + nums[i];
+               }           
+                 
+               while(start < size){
+                    int res1 = sumL/i;
+                    int res2 = 0;
+                    if(j != 0){
+                       res2 = sumR/j;
+                    }    
+                   
+                    int res = res1 - res2;
+                    if(res < 0){
+                       res  = -res; 
+                    }
+                    
+                    if(res < Finalres){
+                       Finalres = res;
+                       finalAns = start; 
+                    }
+                    
+                    i++;
+                    j--;
+                    start++;
+                    if(start == size){break;}
+                   
+                    sumL = sumL + nums[start];
+                    sumR = sumR - nums[start];
+                   
+               }
+        
+               return finalAns; 
+        
+    }
+};
+

@@ -1,0 +1,45 @@
+class Solution {
+public:
+    void makeZero(vector<vector<int>>& matrix,int Csize, int Rsize,int i, int j){
+                 for(int k=0; k<Rsize; k++){
+                     if(matrix[i][k] != INT_MAX-9456){
+                        matrix[i][k] = 0; 
+                     }
+                 }
+                  
+                 for(int k=0; k<Csize; k++){
+                     if(matrix[k][j] != INT_MAX-9456){
+                        matrix[k][j] = 0; 
+                     }
+                 }          
+
+    }
+    
+    
+    void setZeroes(vector<vector<int>>& matrix) {
+            int Csize = matrix.size();             
+            int Rsize = matrix[0].size();
+        
+            for(int i=0; i<Csize; i++){
+                for(int j=0; j<Rsize; j++){
+                    if(matrix[i][j] == 0){
+                       matrix[i][j] = INT_MAX-9456; 
+                    }
+                }
+            } 
+             
+                     
+            for(int i=0; i<Csize; i++){
+                for(int j=0; j<Rsize; j++){
+                    if(matrix[i][j] == INT_MAX-9456){
+                       matrix[i][j] = 0; 
+                       makeZero(matrix,Csize,Rsize,i,j);
+                    }
+                }
+            }              
+                                 
+    }
+    
+    
+};
+

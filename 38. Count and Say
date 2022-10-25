@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+                if(n == 1){
+                   return "1"; 
+                }
+                
+                string res = countAndSay(n-1);
+                int size = res.size();
+                string finalres = "";         
+        
+                int count = 1;
+                char ch = res[0];
+                char j = count + '0';   
+                for(int i=1; i<size; i++){
+                    if(ch == res[i]){
+                       count++;
+                       continue; 
+                    }
+                    
+                    ch = res[i]; 
+                    j = count + '0';
+                    char value = res[0];
+                
+                    //cout << j << "  " << value << endl;
+                    
+                    if(i-1 > 0){
+                       value = res[i-1] ;
+                    }    
+                    finalres = finalres + j + value; 
+                    count = 1;
+                }
+                
+                char t = count + '0'; 
+                finalres = finalres + t + res[size-1];
+                return finalres; 
+        
+    } 
+};
+

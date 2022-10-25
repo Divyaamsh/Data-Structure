@@ -1,0 +1,23 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    bool findSubarrays(vector<int>& nums) {
+                      int size = nums.size(); 
+                      unordered_map <int,bool> ourmap;
+                      
+                      for(int i=0; i<size-1; i++){
+                          int sum = nums[i] + nums[i+1];
+                          if(ourmap.count(sum) > 0){
+                             return true; 
+                          }
+                          
+                          pair <int,bool> p(sum,true);
+                          ourmap.insert(p);
+                      } 
+                      
+                      return false;
+        
+    }
+};
+

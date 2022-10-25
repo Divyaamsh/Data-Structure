@@ -1,0 +1,106 @@
+#include <unordered_map>
+
+class Solution {
+       void check(string &res){
+                 int i =0;
+                 int size = res.size();
+                 int j =size-1;
+           
+                 while(i<j){
+                       if(res[i] != '0' && res[j] != '0'){
+                          break; 
+                       }
+                     
+                       if(res[i]== '0'){
+                          i++; 
+                       }
+                       if(res[j] == '0'){
+                          size--;
+                          j--;
+                       }
+                     
+                 }
+                 size =size - i;
+           
+                 res= res.substr(i,size);
+           
+       }
+    
+public:
+    string largestPalindromic(string num) {
+                  int size1 = num.size();
+                  string res = "";
+                  unordered_map <int,int> ourmap; 
+                  int mid = -1;    
+        
+                  for(int i=0; i<size1; i++){
+                      int value = num[i] - '0';
+                      if(ourmap.count(value) > 0){
+                         ourmap[value]++;
+                         continue; 
+                      }
+                      pair <int,int> p(value,1);
+                      ourmap.insert(p);
+                  } 
+                  
+                  for(int i=9; i>-1; i--){
+                      if(ourmap.count(i) == 0){
+                         continue; 
+                      }
+                      
+                      int h = ourmap[i];
+                      if(h%2 !=0 && mid == -1){
+                         mid = i;
+                      }
+                      if(h ==1){continue;}
+                      
+                      
+                      int j = h / 2;
+                      h = h - (2*j);
+                      int q = 2*j;
+                     
+                      int size = res.size();
+                      size = size/2;
+                      string res1 = res.substr(0,size);
+                      string k = "";
+                      char ch = i + '0';
+                      k.append(q,ch); 
+                      
+                      res = "";
+                      res = res1 + k + res1;
+                      //cout << res << endl;
+                     
+                     
+                  } 
+        
+        
+                  if(mid == -1){
+                      check(res);
+                      if(res == ""){
+                          res = res + '0'; 
+                      }
+                      
+                      return res;
+                  }
+        
+                  int jj = res.size();
+                  jj = jj / 2;
+                  string res1 = res.substr(0,jj);
+                  char ch = mid +'0';
+                  //cout << res1 << endl;
+                  res = "";
+                  string ll = res1;
+                  reverse(res1.begin(),res1.end());
+                  res = ll + ch + res1; 
+                  check(res);
+        
+                  if(res == ""){
+                     res = res + '0'; 
+                  }
+                  return res;
+        
+    }
+};
+
+
+

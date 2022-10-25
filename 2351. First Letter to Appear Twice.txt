@@ -1,0 +1,21 @@
+#include<unordered_map>
+
+class Solution {
+public:
+    char repeatedCharacter(string s) {
+                          int size = s.size();
+                          unordered_map <char,int> ourmap;
+                          
+                          for(int i=0; i<size; i++){
+                              if(ourmap.count(s[i]) > 0){
+                                 return s[i]; 
+                              }
+                              pair<char,int> p(s[i],1);
+                              ourmap.insert(p);
+                              
+                          }  
+                          
+                          return s[0]; 
+    }
+};
+

@@ -1,0 +1,41 @@
+#include <stack>
+
+class Solution {
+public:
+    bool isValid(string s) {
+           stack <char> st;
+           int size = s.size(); 
+           int i = 0;       
+        
+           while(i < size){
+                if(s[i] == ')' || s[i] == ']' || s[i] == '}'){
+                   if(st.size() == 0){ 
+                      return false;
+                   } 
+                    
+                   char ch = s[i];
+                   char check = '('; 
+                   if(ch == ']'){ check = '[';}
+                   if(ch == '}'){ check = '{';}
+                    
+                   if(st.top() == check){
+                      st.pop();
+                      i++;
+                      continue; 
+                   }
+                   cout << st.top() << " "  << s[i] << endl;  
+                   return false; 
+                }
+               
+                st.push(s[i]);
+                i++; 
+           }
+           if(st.size() != 0){
+              return false; 
+           } 
+        
+           return true;      
+         
+    }
+};
+

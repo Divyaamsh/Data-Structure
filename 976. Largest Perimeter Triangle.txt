@@ -1,0 +1,27 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int largestPerimeter(vector<int>& nums) {
+               sort(nums.begin(),nums.end());
+               int size = nums.size();
+        
+               while(size >= 3){  
+                    int side1 = nums[size-1];
+                    int side2 = nums[size-2];
+                    int side3 = nums[size-3];
+               
+                   int sum = side1 + side2 + side3;
+               
+                   if(side1+side2 > side3 && side3+side1 > side2 && side2+side3 > side1){
+                      return sum;
+                   }
+                   size--;
+               }
+        
+               return 0;        
+        
+    }
+};
+
+

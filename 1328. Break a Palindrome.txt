@@ -1,0 +1,37 @@
+class Solution {
+public:
+    string breakPalindrome(string palindrome) {
+                int size = palindrome.size();
+                
+                if(size <= 1){
+                   return ""; 
+                }                 
+                int i = 0; 
+                int len = size/2;
+                bool flag = true;
+        
+                for(; i<len; i++){
+                    if(palindrome[i] == 'a'){
+                       continue; 
+                    }
+                    palindrome[i] = 'a';
+                    flag = false;
+                    break;
+                }
+                if(size %2 != 0){
+                   i++; 
+                }
+                //cout << i;
+                if(i >= len && flag){
+                   while(i < size-1 && palindrome[i] == 'a'){
+                      i++; 
+                   } 
+                    
+                   palindrome[i] = (palindrome[i] + 1); 
+                }
+        
+        
+                return palindrome; 
+
+    }
+};

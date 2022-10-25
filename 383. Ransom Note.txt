@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+            int ransomSize = ransomNote.size();
+            int magazineSize = magazine.size();
+            vector <char> v;     
+        
+            int arrR[26] = {0};  
+            int arrM[26] = {0};
+              
+            for(int i=0; i<ransomSize; i++){
+                if(arrR[ransomNote[i]-97] == 0){
+                   v.push_back(ransomNote[i]); 
+                }
+                arrR[ransomNote[i]-97]++;
+            }
+            for(int i=0; i<magazineSize; i++){
+                arrM[magazine[i]-97]++;
+            }
+                
+            for(int i=0; i<v.size(); i++){
+                if(arrR[v[i]-97] > arrM[v[i]-97]){
+                    return false; 
+                }
+            }
+            return true;
+ 
+    }
+};
+
+

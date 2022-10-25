@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+                       int size = s.size();
+                       vector <string> result;
+                       vector <string> helper;
+        
+                       unordered_map<string,int> ourmap;
+                       unordered_map<string,int> ourmap2;
+ 
+                       int i = 0;
+                       int j = 0;
+                       string res = "";
+        
+                       while(j < 10){
+                             res = res + s[j];
+                             j++;
+                       }
+                       j--;
+                        
+                       while(j < size){
+                             if(ourmap.count(res) > 0){
+                                if(ourmap2.count(res) > 0){
+                                   ourmap2[res]++; 
+                                }
+                                else{
+                                    pair <string,int> p1(res,1);
+                                    ourmap2.insert(p1);
+                                    helper.push_back(res);
+                                }
+                                ourmap[res]++; 
+                             }
+                             else{
+                                 pair <string,int> p(res,1);  
+                                 ourmap.insert(p);
+                             }
+                             j++;
+                             if(j == size){
+                                 break;
+                             }
+                             res = res.substr(1) + s[j]; 
+                             
+                       }
+                        
+                       int Vsize = helper.size();  
+                       for(int i=0; i<Vsize; i++){
+                           int h = ourmap[helper[i]];
+                           //for(int j=0; j<h; j++){
+                               result.push_back(helper[i]);
+                           //} 
+                           
+                       }
+        
+                       return result; 
+                         
+    }
+};
+
+

@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+                    int sSize = s.size();
+                    int pSize = p.size();
+                   
+                    long long sump = 0;
+                    vector<int> result;
+                     if(pSize > sSize){
+                        return result;                
+                    }
+        
+        
+                    int arr[26] = {0};
+                    int h = 2; 
+                    for(int i=0; i<26; i++){
+                        arr[i] = pow(h,2);
+                        h=h+i+1;
+                    }  
+                    for(int i=0; i<pSize; i++){
+                        sump = sump + (p[i] - arr[p[i]-97]) ;
+                    }
+                     
+                    int i = 0;
+                    int j = 0;
+                    long long sum = 0;
+        
+                    while(j < pSize){
+                          sum = sum + (s[j] - arr[s[j]-97]);
+                          j++; 
+                    }
+                    j--;
+                    while(j<sSize){
+                          if(sum == sump){
+                              result.push_back(i);
+                          }
+                          if(j == sSize-1){
+                              break;
+                          }   
+                        
+                          i++;
+                          j++;
+                          //cout << s[i-1] << " " << s[j] << endl; 
+                         // sum = sum - (s[i-1] ) + (s[j]);
+                          
+                          sum = sum - (s[i-1]  - arr[s[i-1] - 97] ) + (s[j]  - arr[s[j] - 97]);
+                    }
+                     
+                    return result;   
+        
+    }
+};
+

@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<string> cellsInRange(string s) {
+                        vector<string> result;
+        
+                        int n1 = s[1] - '0';
+                        int n2 = s[4] - '0';
+                        char first = s[0];
+                        char second = s[3];                   
+        
+                        while(first <= second){
+                              for(int i=n1; i<=n2; i++){
+                                  //string k =  Character.toString(first);
+                                  string res = "";
+                                  string ch = to_string(i) ; 
+                                  res = res + first + ch;
+                                  result.push_back(res);
+                              } 
+                              first++;  
+                        } 
+        
+          
+        
+                        return result;
+    }
+};
+

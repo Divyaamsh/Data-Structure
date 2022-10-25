@@ -1,0 +1,51 @@
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+                  string res = "";
+                  int mod = 0;
+                  bool flag = false;
+        
+                  while(columnNumber > 26){
+                        int y = 64;
+                        if(flag){y--;}
+                        mod = columnNumber%26;
+                        if((columnNumber/26) < mod){ 
+                           char ans = mod + y;
+                           res = ans + res;
+                           ans = columnNumber/26 + 64;
+                           res = ans + res; 
+                           return res;
+                        } 
+                      
+                      
+                        if(flag && columnNumber/26 <= 26){
+                           y = 64;
+                           //cout << columnNumber << " " << mod << endl;
+                           mod = 26;
+                           char ans = mod + y;
+                           res = ans + res;
+                           return res; 
+                        } 
+                      
+                        if(mod == 0){
+                           mod = 26;
+                           flag = true; 
+                        }
+                        else{
+                            flag = false;
+                        } 
+                        char ans = mod + y;
+                        res = ans + res;
+                        columnNumber = columnNumber/26;
+                        //cout << ans << " ";
+                  }
+         
+                  int y = 64;
+                  if(flag){y--;}
+                  char ans = (columnNumber + y);
+                  res = ans + res;
+        
+                  return res; 
+    }
+};
+

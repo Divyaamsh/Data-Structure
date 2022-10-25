@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int hardestWorker(int n, vector<vector<int>>& logs) {
+                     int size = logs.size();                     
+                     int max = logs[0][1];
+                     int prev = 0;
+                     int ans = logs[0][0];
+                      
+        
+                     for(int i=1; i<size; i++){
+                         int start = logs[i-1][1];
+                         int end = logs[i][1];
+                         
+                         if(end - start > max){
+                            max = end - start;
+                            ans =  logs[i][0];
+                            continue;                               
+                         }
+                         if(end - start == max){
+                            if(logs[i][0] < ans) {
+                               ans = logs[i][0]; 
+                            }
+                         }
+                         
+                         
+                     }
+        
+                     return ans;  
+                     
+    }
+};
+

@@ -1,0 +1,49 @@
+#include <unordered_map>
+
+class Solution {
+   
+        
+        void insert(string &s,int &size,unordered_map <char,int> &ourmap){
+                   for(int i=0; i<size; i++){
+                       if(ourmap.count(s[i]) > 0){
+                          ourmap[s[i]]++;
+                          continue; 
+                       }
+                      
+                       
+                       pair <char,int> p(s[i],1);
+                       ourmap.insert(p);  
+                       
+                   }  
+        }
+        
+        
+public:
+    int minSteps(string s, string t) {
+                int sSize = s.size();
+                int tSize = t.size();
+                
+                unordered_map <char,int> ourmaps; 
+                unordered_map <char,int> ourmapt;
+
+                
+                insert(s,sSize,ourmaps);
+                insert(t,tSize,ourmapt);
+                
+                int count = 0;  
+                for(int i=0; i<26; i++){
+                     char ch = i+97;
+                     int res = ourmaps[ch] - ourmapt[ch];
+                     if(res < 0){
+                            res = -res; 
+                     }
+                     count = count + res;
+                    
+                }
+
+                return (count);
+        
+    }
+};
+
+

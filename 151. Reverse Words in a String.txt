@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+                  int i = 0;
+                  int size = s.size();
+                  int j = size-1; 
+                  
+                  while((s[i] == ' ' || s[j] == ' ') && i <= j){
+                       if(s[i] == ' '){
+                          i++; 
+                       }
+                       if(s[j] == ' '){
+                          j--; 
+                       }
+                  } 
+                  s = s.substr(i,j-i+1);
+                  
+                  string res = "";
+                  size = j-i+1;
+                  int r = size-1;
+        
+                  while(r > -1){
+                      int j = r;
+                      int qq = 0;
+                      while(j > -1 && s[j] != ' '){
+                            j--;
+                            qq++; 
+                      }
+                     
+                      string hh = s.substr(j+1,qq);
+                      while(j > -1 && s[j] == ' '){
+                           j--; 
+                      }
+                      cout << hh << endl;
+                      //j--;
+                      r=j;
+                      res = res + hh;
+                      if(j != -1){res = res + ' ';}
+                  }
+     
+                  return res;
+                  
+    }
+};
+
