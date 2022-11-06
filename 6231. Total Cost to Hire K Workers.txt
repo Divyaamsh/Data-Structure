@@ -1,0 +1,67 @@
+#include <algorithm>
+#include <queue>
+
+class Solution {
+public:
+    long long totalCost(vector<int>& costs, int k, int candidates) {
+                   int size = costs.size();
+                   int i = 0;
+                   int j = size-1;
+                   long long sum = 0;
+                   priority_queue<int, vector<int>, greater<int> > pqLeft;
+                   priority_queue<int, vector<int>, greater<int> > pqRight;
+                   
+                   while(candidates--){
+                         if(i < j){
+                            pqLeft.push(costs[i]);
+                            pqRight.push(costs[j]); 
+                            i++;
+                            j--;
+                            continue; 
+                         }
+                         if(i == j){
+                            pqLeft.push(costs[i]);
+                            i++;
+                            break; 
+                         }
+                   }
+        
+                   while(k--){
+                         if(pqLeft.size() == 0 || pqRight.size() == 0){
+                            if(pqLeft.size() != 0){
+                               sum = sum + pqLeft.top(); 
+                               pqLeft.pop(); 
+                               continue; 
+                            }
+                            if(pqRight.size() != 0){
+                               sum = sum + pqRight.top(); 
+                               pqRight.pop(); 
+                               continue; 
+                            }
+                             
+                         }       
+                         if(pqLeft.top() <= pqRight.top()){
+                            sum = sum + pqLeft.top(); 
+                            pqLeft.pop(); 
+                            if(i > j || i > size-1){
+                               continue; 
+                            }
+                            pqLeft.push(costs[i]);
+                            i++; 
+                         }
+                         else{
+                            sum = sum + pqRight.top(); 
+                            pqRight.pop(); 
+                            if(i > j || j < 0){
+                               continue; 
+                            }
+                            pqRight.push(costs[j]);
+                            j--; 
+                         }
+                       
+                   }  
+                   
+                   return sum;
+                  
+    }
+};
