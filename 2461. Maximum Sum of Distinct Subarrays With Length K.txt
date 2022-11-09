@@ -1,0 +1,91 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    long long maximumSubarraySum(vector<int>& nums, int k) {
+                     int size = nums.size();
+                     int numberDuplicate = 0;
+                     long long sum = 0;
+                     long long finalSum = 0;    
+                     unordered_map <int,int> ourmap;
+                     int i = 0;
+                     int j = 0;
+        
+        
+                     while(j < k){
+                           if(ourmap.count(nums[j]) > 0){
+                              ourmap[nums[j]]++; 
+                              numberDuplicate++;
+                              sum = sum + nums[j];
+                              j++;
+                              continue; 
+                           } 
+                           
+                           sum = sum + nums[j];
+                           pair <int,int> p(nums[j],1);
+                           ourmap.insert(p);
+                           j++;
+                     }
+                     //cout << sum  << endl;
+        
+                     if(numberDuplicate == 0){
+                        if(sum > finalSum){
+                           finalSum = sum; 
+                        } 
+                     }
+        
+        
+                     while(j < size){
+                           //cout << numberDuplicate << endl;
+                           //cout << sum << endl;
+                         
+                           if(ourmap.count(nums[i]) > 0){
+                              sum = sum - nums[i];
+                              if(ourmap[nums[i]] != 1){ 
+                                 numberDuplicate--;
+                                  ourmap[nums[i]]--;
+                              }  
+                               
+                              else{
+                                 ourmap[nums[i]]--; 
+                                 ourmap.erase(nums[i]); 
+                              }    
+                           }
+                           
+                           if(ourmap.count(nums[j]) > 0){
+                              ourmap[nums[j]]++; 
+                              numberDuplicate++;
+                              sum = sum + nums[j]; 
+                              //cout << sum << endl; 
+                              i++; 
+                              j++; 
+                              continue; 
+                           } 
+                           
+                           pair <int,int> p(nums[j],1);
+                           sum = sum + nums[j];
+                           ourmap.insert(p);
+                         
+                             
+                           if(numberDuplicate == 0){
+                              if(sum > finalSum){
+                                 finalSum = sum; 
+                              }
+                           }
+                           j++;
+                           i++;
+                               
+                     }
+        
+                     if(numberDuplicate == 0){
+                        if(sum > finalSum){
+                           finalSum = sum; 
+                        } 
+                     }
+        
+                     return finalSum; 
+        
+    }
+};
+
+
