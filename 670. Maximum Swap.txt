@@ -1,0 +1,37 @@
+#include <string>
+
+class Solution {
+public:
+    int maximumSwap(int num) {
+               string res = to_string(num);
+               string original = res;
+               int size = res.size();
+               sort(res.begin(),res.end(),greater<char>());
+        
+               for(int i=0; i<size; i++){
+                   if(res[i] == original[i]){
+                      continue; 
+                   }
+                   
+                   char chi = res[i];
+                   int h = size-1;
+                   while(chi != original[h]){
+                         h--;                       
+                   }
+                   
+                   char t = original[i];
+                   original[i] = res[i];
+                   original[h] = t;
+                   
+                   break; 
+                   
+               }
+        
+               int number = stoi(original);
+        
+               return number; 
+               
+    }
+};
+
+
