@@ -1,0 +1,48 @@
+#include <climits>
+
+class Solution {
+        void check(vector<int>& time,int size,long long mid,long long &res){
+                  long long result = 0;
+                  for(int i=0; i<size; i++){
+                      result = result + (mid/time[i]);
+                  }   
+                  
+                  res = result;  
+        }
+    
+public:
+    long long minimumTime(vector<int>& time, int totalTrips) {
+                     int size = time.size();                     
+                     long long result = 0; 
+                     if(size == 1){
+                        long long j = time[0]; 
+                        long long resul = (j * totalTrips);
+                        return resul; 
+                     }                  
+        
+                     long long start = *min_element(time.begin(),time.end());
+                     long long end = 92233720368-(start+333);
+        
+                     while(start <= end){
+                           long long mid = (start+end)/2;
+                           long long res = 0;
+                           check(time,size,mid,res);                             
+                           
+                         
+                         
+                           if(res >= totalTrips){
+                              result = mid;  
+                              end = mid - 1; 
+                           }
+                           if(res < totalTrips){
+                              start = mid + 1;
+                           }
+                         
+                     }
+        
+                     return result;
+        
+    }
+};
+
+ 
