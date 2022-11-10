@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+                   int size = boxes.size();
+                   vector <int> helper;   
+                   vector <int> result;
+                      
+                   for(int i=0; i<size; i++){
+                       if(boxes[i] == '1'){
+                          helper.push_back(i); 
+                       }
+                   }                   
+                    
+                   int size1 = helper.size();           
+                   for(int i=0; i<size; i++){
+                       int ans = 0;
+                       for(int j=0; j<size1; j++){
+                           ans = ans + abs(i-helper[j]);
+                       }
+                       result.push_back(ans);
+                   } 
+        
+                   return result;
+    }
+};
+
