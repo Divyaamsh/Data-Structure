@@ -1,0 +1,39 @@
+#include <algorithm>
+
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+              int limit = c;
+              if(c == 0){return true;} 
+              if(c > 10){
+                 limit = sqrt(c);
+              }    
+              for(int i=0; i<limit; i++){
+                  int se = c - (i*i);
+                  if(se < 0){
+                     return false; 
+                  }
+                  
+                  int start = 0;
+                  int end = limit;
+                  while(start <= end){
+                        int mid = (start + end)/2;
+                        int value = mid * mid;
+                        if(value == se){
+                           return true; 
+                        }
+                      
+                        if(value > se){
+                           end = mid - 1; 
+                        }
+                        if(value < se){
+                           start = mid + 1;  
+                        }
+                  }
+              }
+        
+              return false;
+              
+    }
+};
+
