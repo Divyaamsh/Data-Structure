@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int equalSubstring(string s, string t, int maxCost) {
+             int size = s.size();
+             int i = 0;
+             int j = 0;
+             int largest = 0;
+             int count = 0;
+             
+             while(j < size){
+                   int data = abs(s[j] - t[j]);
+                   maxCost = maxCost - data;
+                 
+                   if(maxCost > -1){
+                      count++;
+                      j++;
+                      continue; 
+                   }
+                   else{
+                      if(count > largest){
+                         largest = count; 
+                      }
+                      maxCost = maxCost + abs(s[i] - t[i]) + data;
+                      count--; 
+                      i++;
+                   }
+             } 
+             
+             if(count > largest){
+                return count; 
+             }
+        
+             return largest;
+             
+    }
+};
+
+
