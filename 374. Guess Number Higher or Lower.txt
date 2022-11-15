@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int guessNumber(int n) {
+             long long start = 1;
+             long long end = n; 
+               
+             while(start <= end){
+                   long long mid = (start+end)/2;
+                   long long res = guess(mid);
+                 
+                   if(res == 0){ 
+                      return mid; 
+                   }
+                   if(res == -1 ){
+                      end = mid - 1; 
+                   }
+                   if(res == 1){
+                      start = mid + 1; 
+                   }
+                   
+             }
+    
+             return 1;
+    }
+};
+
