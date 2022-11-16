@@ -1,0 +1,55 @@
+class Solution {
+public:
+    void check(vector<int>& nums,int size,int mid,int &res){
+              int count = 0;
+              int sum1 = 0;
+              for(int i=0; i<size; i++){
+                  sum1 = sum1 + nums[i];
+                  if(sum1 > mid){
+                     count++;
+                     sum1 = 0;
+                     i--; 
+                  }
+              }
+              if(sum1 != 0){
+                 count++;
+              } 
+              res = count;
+    }
+    
+    
+    int splitArray(vector<int>& nums, int m) {
+              int sum = 0;
+              int size  = nums.size();
+              for(int i=0; i<size; i++){
+                  sum = sum + nums[i];
+              } 
+              int maximum = *max_element(nums.begin(),nums.end());
+        
+              int start = maximum;        
+              int end = sum;
+              int mid = 0;
+              //cout << start << " " << end <<endl;
+        
+              while(start<=end){
+                    if(start == end){
+                        return start;
+                    }
+                  
+                    mid = (start + end)/2;
+                    int res = 0;
+                    check(nums,size,mid,res); 
+                    //cout << res << endl;
+                  
+                    if(res <= m){
+                       end = mid; 
+                    }  
+                    if(res > m){
+                       start = mid+1; 
+                    }
+              }
+        
+              return mid;    
+                  
+    }
+};
