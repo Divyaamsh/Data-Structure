@@ -1,0 +1,42 @@
+#include <unordered_map>
+#include <algorithm>
+
+class Solution {
+        void check(vector<int>& nums1, int sizeNums1, vector<int>& nums2, int sizeNums2, vector <int> &res){
+                  unordered_map <int,int> ourmap;
+                  sort(nums2.begin(),nums2.end());
+                  
+                  for(int i=0; i<sizeNums1; i++){
+                      int g = nums1[i];
+                      bool r = binary_search(nums2.begin(),nums2.end(),g);
+                      if(r){
+                         if(ourmap.count(g) > 0){
+                            continue; 
+                         }
+                         pair <int,int> p(g,1);
+                         ourmap.insert(p);
+                         res.push_back(g); 
+                      }
+                  }  
+            
+        } 
+    
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+                            int sizeNums1 = nums1.size();        
+                            int sizeNums2 = nums2.size();
+                            vector <int> res;     
+                            
+                            if(sizeNums1 < sizeNums2){
+                               check(nums1,sizeNums1,nums2,sizeNums2,res);             
+                            }
+                            else{
+                               check(nums2,sizeNums2,nums1,sizeNums1,res); 
+                            }
+                            
+                            return res;
+                              
+    }
+};
+
+
