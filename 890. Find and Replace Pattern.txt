@@ -1,0 +1,49 @@
+#include <unordered_map>
+class Solution {
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+                          int size = words.size();
+                          vector<string> result;
+         
+                          for(int i=0; i<size; i++){
+                              string wor = words[i];
+                              int len = wor.size();
+                              unordered_map <char,char> ourmap1;
+                              unordered_map <char,char> ourmap2;
+                              bool flag1 = true;
+                              bool flag2 = true;
+                              
+                              for(int j=0; j<len; j++){
+                                  if(ourmap1.count(pattern[j]) > 0){ 
+                                       if(ourmap1[pattern[j]] != wor[j]){
+                                          flag1 = false;      
+                                       } 
+                                  }
+                                  else{
+                                     pair <char,char> p(pattern[j],wor[j]);
+                                     ourmap1.insert(p);
+                                  } 
+                                  
+                                  
+                                  if(ourmap2.count(wor[j]) > 0){ 
+                                       if(ourmap2[wor[j]] != pattern[j]){
+                                          flag2 = false;      
+                                       } 
+                                  }
+                                  else{
+                                     pair <char,char> p(wor[j],pattern[j]);
+                                     ourmap2.insert(p);
+                                  } 
+                                   
+                              }
+                              
+                              if(flag1 && flag2){
+                                result.push_back(wor);
+                              }
+                              
+                          }
+         
+                          return result;                                            
+    }
+};
+
