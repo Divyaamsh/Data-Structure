@@ -1,0 +1,64 @@
+#include <unordered_map>
+
+class Solution {
+        void check(vector<int> num,int size,vector<int> &helper,unordered_map <int,int> &ourmap,unordered_map <int,int> &ourmaphelper){
+                  for(int i=0; i<size; i++){
+                      if(ourmap.count(num[i]) > 0){
+                         ourmap[num[i]]++;
+                         continue; 
+                      }
+                      pair <int,int> p(num[i],1);
+                      ourmap.insert(p);
+                      
+                      if(ourmaphelper.count(num[i]) > 0){
+                         continue; 
+                      } 
+                      pair <int,int> p1(num[i],1);
+                      ourmaphelper.insert(p1);
+                      helper.push_back(num[i]);
+                 }              
+        }    
+    
+    
+public:
+    vector<int> twoOutOfThree(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3) {
+                        vector<int> result;
+                        vector<int> helper;
+                        int size1 = nums1.size();
+                        int size2 = nums2.size();
+                        int size3 = nums3.size();
+                                  
+                        unordered_map <int,int> ourmapnums1;
+                        unordered_map <int,int> ourmapnums2;
+                        unordered_map <int,int> ourmapnums3;
+                        unordered_map <int,int> ourmap;
+        
+                        check(nums1,size1,helper,ourmapnums1,ourmap);
+                        check(nums2,size2,helper,ourmapnums2,ourmap);
+                        check(nums3,size3,helper,ourmapnums3,ourmap);
+                        
+                        int size = helper.size();
+                        for(int i=0; i<size; i++){
+                            int data = helper[i];
+                            int h = 0;
+                            if(ourmapnums1.count(data) > 0){
+                               h++; 
+                            }
+                            if(ourmapnums2.count(data) > 0){
+                               h++; 
+                            }
+                            if(ourmapnums3.count(data) > 0){
+                               h++; 
+                            }
+                            
+                            if(h == 2 || h == 3){
+                               result.push_back(data);     
+                            }
+                        }   
+                         
+                        return result; 
+        
+    }
+};
+
+
