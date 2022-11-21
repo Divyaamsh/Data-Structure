@@ -1,0 +1,35 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int maximumTop(vector<int>& nums, int k) {
+               int size = nums.size();
+               if(size == 1){
+                  if(k % 2 == 0){
+                     return nums[0]; 
+                  }
+                  return -1; 
+               }
+               if(k == 0){
+                  return nums[0]; 
+               }
+               if(k == 1){
+                  return nums[1]; 
+               }
+        
+        
+               if(k > size){
+                  int maxi = *max_element(nums.begin(),nums.end());
+                  return maxi; 
+               }
+               int maxi = *max_element(nums.begin(),nums.begin()+k-1);
+               if(k<size && nums[k] > maxi){
+                  return nums[k]; 
+               }
+        
+               return maxi; 
+        
+    }
+};
+
+

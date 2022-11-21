@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+              vector<int> helper = nums;
+              int size = nums.size();
+              for(int i=size-1; i>0; i--){
+                  if(nums[i-1] > nums[i]){
+                     nums[i-1] = nums[i];
+                     helper[i] = helper[i-1]; 
+                     break; 
+                  }
+              } 
+        
+              bool res1 = true;
+              bool res2 = true; 
+              for(int i=0; i<size-1; i++){
+                  if(nums[i+1] < nums[i]){
+                     res1 = false;
+                  }
+                  if(helper[i+1] < helper[i]){
+                     res2 = false;
+                  }
+                  
+              }
+              
+              if(res1 || res2){
+                 return true; 
+              }
+              return false; 
+             
+    }
+};
