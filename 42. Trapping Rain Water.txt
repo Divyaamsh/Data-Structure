@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int trap(vector<int>& arr) {
+          int n = arr.size(); 
+          int answer = 0;
+        int maxelement = *max_element(arr.begin(),arr.end());
+        int index = n-1;
+        for(int i=n-1; i>-1; i--){
+            if(arr[i] == maxelement){
+               index  = i;
+               break; 
+            }
+        }
+    
+        int i = 1;
+        int sum = 0;
+        int diff = 0;
+        int count = 0;
+        int value = arr[0];
+        int j = i;
+    
+        while(i <= index ){
+              if(arr[i] < value){
+                 count++;
+                 diff = diff + arr[i];
+                 i++;
+                  
+                 continue; 
+              }
+              sum = sum + (count*value);
+              count = 0;
+              value = arr[i];
+              j = i; 
+              i = i + 1;
+        }
+       
+        count = 0;
+        int k = n-2;
+        value = arr[n-1];
+        if(index != n-1){
+            while(k >= index){
+                if(arr[k] < value){
+                 count++;
+                 diff = diff + arr[k];
+                 k--;
+                 continue; 
+              }
+              sum = sum + (count*value);
+              count = 0;
+              value = arr[k];
+              k = k - 1;
+       
+           } 
+        }     
+         
+        return (sum-diff);
+        
+        
+    }
+};
+
