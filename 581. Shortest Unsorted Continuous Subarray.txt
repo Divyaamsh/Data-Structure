@@ -1,0 +1,49 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+                    int size = nums.size();
+                    vector <int> helper = nums;
+                    sort(helper.begin(),helper.end());
+                    bool flagL = true;
+                    bool flagR = true;
+                    int i = 0; 
+                    int j = size - 1;
+                    int ansL = 0;
+                    int ansR = 0; 
+        
+                     
+                    while(i <= j){
+                          if(flagL){
+                             if(nums[i] != helper[i]){
+                                ansL = i;
+                                flagL = false; 
+                             }
+                             i++; 
+                          }
+                          
+                          if(flagR){
+                             if(nums[j] != helper[j]){
+                                ansR = j;
+                                flagR = false; 
+                             }
+                             j--; 
+                          }
+                        
+                          if(flagL == flagR && flagL == false){
+                             break; 
+                          }
+                                                 
+                    }
+        
+                    if(ansR == ansL && ansL == 0){
+                       return 0;
+                    } 
+        
+                    return (ansR-ansL+1);
+                     
+    }
+};
+
+
