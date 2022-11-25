@@ -1,0 +1,54 @@
+class Solution {
+        void binarySearch(vector<int>& nums, int target,int size,vector<int> &result){
+                  int start = 0;
+                  int end = size-1;
+                  int mid = 0; 
+            
+                  while(start<=end){
+                        mid = (start+end)/2;
+                        if(nums[mid] == target){
+                               int left = mid;
+                               int right = mid;
+                            
+                               while(left > -1 && nums[left-1] == target){
+                                      left--;                                   
+                               }
+                               result.push_back(left);
+                               
+                               while(right < size && nums[right+1] == target){
+                                      right++;                                   
+                               }
+                               result.push_back(right);
+                               
+                               return ;
+                        }
+                      
+                        if(nums[mid] > target){
+                           end = mid - 1;           
+                        }
+                        else{
+                           start = mid + 1; 
+                        }
+                      
+                  }
+                   
+                  result.push_back(-1);    
+                  result.push_back(-1);    
+                  
+        } 
+
+    
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+                      int left = -1;
+                      int right = -1;
+                      int size = nums.size();
+                      vector<int> result;              
+        
+                      binarySearch(nums,target,size,result);   
+                      
+                      return result;    
+        
+    }
+};
+
