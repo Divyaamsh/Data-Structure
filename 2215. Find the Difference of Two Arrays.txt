@@ -1,0 +1,45 @@
+#include <algorithm>
+#include <unordered_map>
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+                            int size1 = nums1.size();
+                            int size2 = nums2.size();
+                            sort(nums1.begin(),nums1.end());
+                            sort(nums2.begin(),nums2.end());
+                            vector<vector<int>> res;
+                            vector <int> v1;
+                            vector <int> v2;
+                            unordered_map <int,int> ourmap1;
+                            unordered_map <int,int> ourmap2;                           
+                            
+        
+                            for(int i=0; i<size1; i++){
+                                bool res = binary_search(nums2.begin(),nums2.end(),nums1[i]);
+                                if(!res){
+                                   if(ourmap1.count(nums1[i]) == 0){
+                                      v1.push_back(nums1[i]);  
+                                   } 
+                                   pair <int,int> p(nums1[i],1);
+                                   ourmap1.insert(p); 
+                                }
+                            }
+                            res.push_back(v1);
+                            for(int i=0; i<size2; i++){
+                                bool res = binary_search(nums1.begin(),nums1.end(),nums2[i]);
+                                 if(!res){
+                                   if(ourmap2.count(nums2[i]) == 0){
+                                      v2.push_back(nums2[i]);  
+                                   } 
+                                   pair <int,int> p(nums2[i],1);
+                                   ourmap2.insert(p); 
+                                }
+                            } 
+                            res.push_back(v2);
+        
+                            return res;
+        
+    }
+};
+
