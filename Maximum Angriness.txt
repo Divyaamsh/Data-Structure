@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+	
+	while(n--){
+	     long long first,second;
+	     cin >> first >> second;
+	     
+	     long long  h = first/2;
+	     if(second > h){
+	        second = h; 
+	     }
+	     long long j = second;
+	     long long y = first;
+	     long long kk = y - second;
+	     long long  diff = first - (2*second);
+	     
+	     long long  sum = 0;
+	     sum = sum + (y * (y-1))/2 - (kk * (kk-1))/2;
+	    
+	     sum = sum + second * diff;
+	     sum = sum + ((second * (second-1))/2);
+	     
+	     cout << sum << endl; 
+	      
+	}
+	
+	return 0;
+}
