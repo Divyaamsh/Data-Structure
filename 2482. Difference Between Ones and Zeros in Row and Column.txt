@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<vector<int>> onesMinusZeros(vector<vector<int>>& grid) {
+                            int sizeC = grid.size();
+                            int sizeR = grid[0].size();
+                            //vector<vector<int>> result(sizeC, vector<int>(sizeR, 0));
+                            vector <int> RZero;
+                            vector <int> ROne;
+                            vector <int> CZero;
+                            vector <int> COne;
+                            
+                            for(int i=0; i<sizeC; i++){
+                                int zeroValue = 0;
+                                int oneValue = 0;   
+                                for(int j=0; j<sizeR; j++){
+                                    if(grid[i][j] == 0){
+                                       zeroValue++; 
+                                    }
+                                    if(grid[i][j] == 1){
+                                       oneValue++; 
+                                    }
+                                }
+                                RZero.push_back(zeroValue);
+                                ROne.push_back(oneValue);
+                            }   
+        
+                            for(int i=0; i<sizeR; i++){
+                                int zeroValue = 0;
+                                int oneValue = 0;   
+                                for(int j=0; j<sizeC; j++){
+                                    if(grid[j][i] == 0){
+                                       zeroValue++; 
+                                    }
+                                    if(grid[j][i] == 1){
+                                       oneValue++; 
+                                    }
+                                }
+                                CZero.push_back(zeroValue);
+                                COne.push_back(oneValue);
+                            }   
+                            
+                            for(int i=0; i<sizeC; i++){
+                                for(int j=0; j<sizeR; j++){
+                                    grid[i][j] = ROne[i] + COne[j] - CZero[j] - RZero[i];
+                                }
+                            }   
+                            
+                            return grid;                                     
+    }
+};
+
