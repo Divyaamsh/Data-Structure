@@ -1,0 +1,34 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+                      int size = nums.size();
+                      if(size == 1){return false;}
+                      unordered_map<int,int> ourmap;
+                      pair <int,int> p(0,-1);
+                      ourmap.insert(p);
+                      long long sum = 0;
+        
+                      for(int i=0; i<size; i++){
+                          sum = sum + nums[i];
+                          int remainder = sum % k;
+                          
+                          if(ourmap.count(remainder) > 0){
+                             int l =  i - ourmap[remainder];
+                             if(l >= 2){
+                                return true;
+                             } 
+                             continue; 
+                          }
+                          
+                          pair <int,int> p1(remainder,i);
+                          ourmap.insert(p1);
+                          
+                      }               
+        
+                      return false;
+        
+    }
+};
+
