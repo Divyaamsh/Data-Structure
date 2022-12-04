@@ -1,0 +1,53 @@
+#include <math.h>
+#include <string>
+
+class Solution {
+public:
+    vector<long long> kthPalindrome(vector<int>& queries, int intLength) {
+                               int size = queries.size();              
+                               vector <long long> v;
+                               bool flag = false;
+                               if(intLength % 2 != 0){
+                                  flag = true; 
+                               }
+                               int a = intLength/2-1;
+                               if(flag){
+                                  a++; 
+                               } 
+        
+                               long long k = pow(10,a);                       
+        
+                               for(int i=0; i<size; i++){
+                                   int qq = queries[i];
+                                   /*
+                                   if(qq > k){
+                                      v.push_back(-1);
+                                      continue; 
+                                   }*/
+                                   
+                                   int q = qq-1;
+                                   long long res = k + q;
+                                   
+                                   string k = to_string(res);
+                                   string j = k;
+                                   if(flag){
+                                      k.pop_back();
+                                   }    
+                                   reverse(k.begin(),k.end());
+                                   string ress = j + k;
+                                   if(ress.size() > intLength){
+                                      v.push_back(-1);
+                                      continue; 
+                                   }
+                                   
+                                   long long resf = stoll(ress);
+                                   
+                                   v.push_back(resf);
+                                   
+                               } 
+        
+                               return v; 
+                               
+    }
+};
+
