@@ -1,0 +1,61 @@
+#include <algorithm>
+
+class Solution {
+        int binary_searchHelper(vector<int>& nums,int size){
+                   int start = 0;
+                   int end = size-1;
+                   int mid = 0;  
+
+                   while(start <= end){
+                         mid = (start+end)/2;
+                         if(nums[mid] == 0){
+                            return mid; 
+                         }
+                         
+                         if(nums[mid] > 0){
+                            end = mid - 1; 
+                         } 
+                         else{
+                            start = mid + 1;
+                         }
+
+                   }  
+
+                   return mid;
+                    
+        }
+
+
+public:
+    int findClosestNumber(vector<int>& nums) {
+            sort(nums.begin(),nums.end());
+            int size = nums.size();
+            int res = binary_searchHelper(nums,size);     
+
+            if(nums[res] == 0){
+               return 0; 
+            }  
+     
+            int value1 = abs(nums[res]);
+            int value2 = INT_MAX;
+            int value3 = INT_MAX;
+
+            if(res < size-1){
+               value2 = abs(nums[res+1]); 
+            }
+            if(res > 0){
+               value3 = abs(nums[res-1]);  
+            }           
+   
+            //cout << value1 << " " << value2;
+            if(value2 <= value1 && value2 < value3){
+                return nums[res+1];
+            } 
+            if(value3 < value1 && value3 < value2){
+                return nums[res-1];
+            }
+            return nums[res];
+
+    }
+};
+
