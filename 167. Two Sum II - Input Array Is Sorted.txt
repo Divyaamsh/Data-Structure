@@ -1,0 +1,61 @@
+class Solution {
+        int binary_search(vector<int>& nums, int size,int target){
+                         int start = 0;
+                         int end = size-1;
+                         int mid = 0;  
+
+                         while(start <= end){
+                               mid = (start + end)/2;
+                               if(nums[mid] == target){
+                                  return mid; 
+                               }
+
+                               if(nums[mid] < target){
+                                  start = mid + 1; 
+                               }
+                               else{
+                                  end = mid - 1;    
+                               }
+                         }
+                         return -1;
+
+        }  
+
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+                      int size = numbers.size();
+                      vector <int> result;           
+                      
+                       for(int i=0; i<size; i++){
+                           int sea = target - numbers[i];    
+                           int index = binary_search(numbers,size,sea); 
+                           if(index != -1){
+                              if(index == i){
+                                 int value = numbers[index];
+                                 if(index != size-1){
+                                    if(numbers[index+1] == value){
+                                        result.push_back(i+1);
+                                        result.push_back(index+2);
+                                        return result;  
+                                    } 
+                                 }
+                                 if(index != 0){
+                                    if(numbers[index-1] == value){
+                                        result.push_back(i+1);
+                                        result.push_back(index);
+                                        return result;  
+                                    }
+
+                                 }
+                                  
+                              }    
+
+                              result.push_back(i+1);
+                              result.push_back(index+1); 
+                              break;
+                           } 
+                       }
+
+                       return result;
+    }
+};
