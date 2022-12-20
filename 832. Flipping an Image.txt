@@ -1,0 +1,19 @@
+#include <algorithm>
+ 
+class Solution {
+public:
+    vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
+                            int size = image.size();                           
+                            int sizeR = image[0].size();
+
+                            for(int i=0; i<size; i++){
+                                reverse(image[i].begin(),image[i].end());
+                                for(int j=0; j<sizeR; j++){
+                                    image[i][j] = image[i][j] ^ 1;
+                                }
+                            }
+
+                             return image; 
+    }
+};
+
