@@ -1,0 +1,29 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int deleteGreatestValue(vector<vector<int>>& grid) {
+                      int result = 0;
+                      int sizeC = grid.size();
+                      int sizeR = grid[0].size();
+                      int finalMax = 0;
+        
+                      for(int i=0; i<sizeC; i++){
+                          vector <int> &k = grid[i];
+                          sort(k.begin(),k.end());
+                      }  
+        
+                      for(int j=0; j<sizeR; j++){
+                          int maxV = 0;
+                          for(int i=0; i<sizeC; i++){
+                              maxV = max(maxV,grid[i][j]);     
+                          }
+                          finalMax = finalMax + maxV;
+                          
+                      }
+        
+                      return finalMax;
+    }
+};
+
+

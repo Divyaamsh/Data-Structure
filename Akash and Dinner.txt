@@ -1,0 +1,63 @@
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+	
+	for(int i=0; i<n; i++){
+	    int size,number;
+	    cin >> size >> number;
+	    unordered_map <int,int> ourmap;
+	    
+	    int *item = new int[size];
+	    int *timep = new int[size];
+	    
+	    for(int i=0; i<size; i++){
+	        cin >> item[i];
+	    }
+	    for(int i=0; i<size; i++){
+	        cin >> timep[i];
+	    }
+	    int count = 0;
+	   
+	    vector <int> v;
+	    for(int i=0; i<size; i++){
+	        if(ourmap.count(item[i]) > 0){
+	           if(ourmap[item[i]] > timep[i]){
+	              ourmap[item[i]] = timep[i];      
+	           }
+	           continue;
+	        }
+	        count++;
+	        pair <int,int> p(item[i],timep[i]);
+	        v.push_back(item[i]);
+	        ourmap.insert(p);
+	    }
+	    if(count < number){
+	        cout << "-1" << endl;
+	        continue;
+	    }
+	    
+	    int h = v.size();
+	    vector <int> res;
+	    long long sum = 0;
+	    for(int i=0; i<h; i++){
+	        res.push_back(ourmap[v[i]]);
+	    }
+	    sort(res.begin(),res.end());
+	    
+	    for(int i=0; i<number; i++){
+	        sum = sum + res[i];
+	    }
+	    
+	    cout << sum << endl;
+	}
+	
+	
+	return 0;
+}
