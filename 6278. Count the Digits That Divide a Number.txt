@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int countDigits(int num) {
+             int res = num;
+             int count = 0;
+        
+             while(num > 0){
+                   int value = num % 10;
+                   num = (num - value) / 10;
+                 
+                   if(res % value == 0){
+                      count++; 
+                   } 
+                 
+             }  
+             
+             return count;        
+         
+    }
+};
