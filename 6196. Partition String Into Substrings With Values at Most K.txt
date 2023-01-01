@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int minimumPartition(string s, int k) {
+               int j = 0;
+               int size = s.size();  
+               string res= "";
+               int count= 0; 
+        
+               while(j <= size){
+                     if(j == size){
+                        long long h = stoll(res);
+                        if(h <= k){
+                           count++;
+                           break; 
+                        }
+                        return -1; 
+                     }
+                   
+                     res = res + s[j];
+                     long long h = stoll(res);
+                     if(h <= k){
+                        j++;
+                        continue; 
+                     }
+                   
+                     if(h <= 9){
+                        return -1; 
+                     }
+                     count++;
+                     res = "";
+                     
+                   
+               }
+        return count;
+        
+    }
+};
