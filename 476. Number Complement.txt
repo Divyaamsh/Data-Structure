@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findComplement(int num) {
+            int q = 0;
+            int i = 0;
+
+            while(q < num){
+                 q = q + pow(2,i);
+                 i++;
+            }
+ 
+            return (num ^ q); 
+
+    }
+};
