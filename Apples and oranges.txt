@@ -1,0 +1,21 @@
+#include <iostream>
+#include <algorithm>
+ #include<numeric> 
+using namespace std;
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+	
+	while(n--){
+	     int first,second;
+	     cin >> first >> second;
+	     
+	     int q = __gcd(first,second);
+	     cout << q << endl;
+	    
+	}
+	
+	return 0;
+}
