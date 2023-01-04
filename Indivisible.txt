@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int n;
+	cin >> n;
+	
+	while(n--){
+	     int f,s,t;
+	     cin >> f >> s >> t;
+	     
+	     for(int i=2; i<101; i++){
+	         if(f % i !=0 && s % i != 0 && t % i != 0){
+	            cout << i << endl;
+	            break;
+	         }
+	         
+	     }
+	    
+	}
+	
+	return 0;
+}
