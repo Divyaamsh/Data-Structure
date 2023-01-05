@@ -1,0 +1,35 @@
+class Solution {
+        void check(vector<int> helper,vector<int> &result,int i,int rowIndex){
+                  int size = i+1;
+                  vector <int> helper2;
+                  helper2.push_back(1);
+
+                  for(int j=0; j<size-2; j++){
+                      helper2.push_back(helper[j]+helper[j+1]);
+                  }
+
+                  if(size-1 != 0){
+                     helper2.push_back(1); 
+                  }
+
+                  if(i == rowIndex){
+                     result = helper2;
+                     return; 
+                  }
+
+                  check(helper2,result,i+1,rowIndex);   
+
+        }          
+
+
+public:
+    vector<int> getRow(int rowIndex) {
+                   vector<int> helper;
+                   helper.push_back(1);
+                   vector<int> result;
+
+                   check(helper,result,0,rowIndex);   
+                   return result;  
+
+    }
+};
