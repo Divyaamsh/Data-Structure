@@ -1,0 +1,39 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    bool checkValid(vector<vector<int>>& matrix) {
+              int size = matrix.size(); 
+
+              for(int i=0; i<size; i++){
+                  unordered_map <int,int> ourmap;
+                  unordered_map <int,int> ourmap1;
+
+                  for(int j=0; j<size; j++){
+                      int g = matrix[i][j]; 
+                      if(g > size){
+                         return false; 
+                      }
+                      if(ourmap.count(g) > 0){
+                         return false; 
+                      }
+                      pair<int,int> p(g,1);
+                      ourmap.insert(p);
+                                        
+                      int q = matrix[j][i]; 
+                      if(q > size){
+                        return false; 
+                      }
+                      if(ourmap1.count(q) > 0){
+                         return false; 
+                      }
+                      pair<int,int> p1(q,1);
+                      ourmap1.insert(p1);
+                }    
+              }    
+
+              return true; 
+              
+    }
+};
+
