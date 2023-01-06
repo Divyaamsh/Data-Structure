@@ -1,0 +1,45 @@
+class Solution {
+        int check1(vector<vector<int>>& mat,int i,int j,int sizeC,int sizeR,vector<vector<bool>>& visited){
+                  if(i == sizeC-1 && j == sizeR-1){
+                     visited[i][j] = true;
+                     return mat[i][j]; 
+                  }                   
+                  visited[i][j] = true;
+                  cout << mat[i][j] << endl;
+
+                  return(mat[i][j] + check1(mat,i+1,j+1,sizeC,sizeR,visited));
+
+        } 
+        int check2(vector<vector<int>>& mat,int i,int j,int sizeC,int sizeR,vector<vector<bool>>& visited){
+                  if(i == sizeC-1 && j == 0){
+                     if(visited[i][j]){
+                        return 0; 
+                     } 
+                     return mat[i][j]; 
+                  }                   
+                  int h = 0;
+                  if(visited[i][j]){
+                     h =  check2(mat,i+1,j-1,sizeC,sizeR,visited);
+                     visited[i][j] = true;
+                     return h;
+                  } 
+                  else{ 
+                      visited[i][j] = true;
+                      return(mat[i][j] + check2(mat,i+1,j-1,sizeC,sizeR,visited));
+                  } 
+        }
+
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+                int sizeC = mat.size();
+                int sizeR = mat[0].size();
+                vector<vector<bool>> visited(sizeC, vector<bool>(sizeR,0));
+
+                int sum1 = check1(mat,0,0,sizeC,sizeR,visited);
+                int sum2 = check2(mat,0,sizeR-1,sizeC,sizeR,visited); 
+                 
+                return (sum1+sum2);  
+    
+    }
+};
+
