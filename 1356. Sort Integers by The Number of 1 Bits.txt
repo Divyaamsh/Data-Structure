@@ -1,0 +1,44 @@
+#include <algorithm>
+
+class Solution {
+        int check(int value){
+                 int count = 0;
+                 while(value > 0){
+                       if(value & 1){
+                          count++; 
+                       }
+                       value = value >> 1;  
+                 }
+
+                 return count;
+
+        }
+
+
+public:
+    vector<int> sortByBits(vector<int>& arr) {
+                    vector<vector<int>> helper(15, vector<int>(1,0));
+                    sort(arr.begin(),arr.end());
+                    int size = arr.size(); 
+                    
+                     
+                    for(int i=0; i<size; i++){
+                        int value = check(arr[i]);
+                        vector<int> &v = helper[value];
+                        v.push_back(arr[i]); 
+                    }
+
+                    vector <int> ans;
+                    for(int i=0; i<15; i++){
+                        vector<int> v = helper[i];
+                        int g = v.size();
+                        for(int j=1; j<g; j++){
+                            ans.push_back(v[j]);  
+                        } 
+                    }
+                    
+                    return ans;
+
+    }
+};
+
