@@ -1,0 +1,31 @@
+class Solution {
+        void check(vector<int>& nums,int size,int i,vector<int>helper,int &res){
+                  if(i == size){
+                     int size1 = helper.size();
+                     int h = 0;
+                     for(int i=0; i<size1; i++){
+                         h = h ^ helper[i];
+                     }
+                     res = res + h; 
+                     return; 
+                  }
+
+                  check(nums,size,i+1,helper,res);
+                  helper.push_back(nums[i]);
+                  check(nums,size,i+1,helper,res);
+
+        }
+
+public:
+    int subsetXORSum(vector<int>& nums) {
+              int size = nums.size();
+              int res = 0;
+              vector<int> helper;
+
+              check(nums,size,0,helper,res);
+
+              return res;
+
+    }
+};
+
