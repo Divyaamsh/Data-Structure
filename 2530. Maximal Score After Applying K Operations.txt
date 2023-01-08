@@ -1,0 +1,35 @@
+#include <queue>
+#include <cmath>
+
+class Solution {
+public:
+    long long maxKelements(vector<int>& nums, int k) {
+                 long long res = 0;  
+                 priority_queue <int> pq;
+                 int size = nums.size(); 
+        
+                 for(int i=0; i<size; i++){
+                     pq.push(nums[i]);
+                 } 
+        
+                 while(k--){
+                      int y = pq.top();
+                      pq.pop();
+                      res = res + y;
+                      double r = y;
+                      double t = r/3;
+                      int u = y/3;
+                     
+                     
+                      if(t - u != 0){
+                          
+                         u++; 
+                      } 
+                     
+                      pq.push(u);
+                 }
+        
+                return res;
+        
+    }
+};
