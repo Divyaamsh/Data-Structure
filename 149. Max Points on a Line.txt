@@ -1,0 +1,65 @@
+class Solution {
+        int check2(vector<vector<int>>& points,int size, int slope){
+                  int count = 0;
+                  for(int i=0; i<size; i++){
+                      if(points[i][0] == slope){
+                         count++;  
+                      }
+                  }                      
+                   
+                  return count; 
+        }  
+
+
+        int check(vector<vector<int>>& points,int i,int j,int y1,int x1,double slope,int size){
+                 int count = 0;
+                 for(int q=0; q<size; q++){  
+                     double y2 = points[q][1];
+                     double x2 = points[q][0];
+                     if(x2-x1 == 0){
+                         continue;
+                     }    
+
+                     double res = (y2-y1)/(x2-x1);  
+                     if(res == slope){
+                        count++;
+                     }  
+                 } 
+                  
+                 return count;
+
+        }
+
+public:
+    int maxPoints(vector<vector<int>>& points) {
+                 int size = points.size();  
+                 int res = 0;
+                 if(size == 1){return 1;}   
+
+                 for(int i=0; i<size; i++){
+                     double x1 = points[i][0];
+                     double y1 = points[i][1]; 
+                     for(int j = i+1; j<size; j++){
+                         double x2 = points[j][0];
+                         double y2 = points[j][1];
+                         if(x2-x1 == 0){
+                            int slope = x2;
+                            int count = check2(points,size,slope);
+                            if(count > res){
+                               res = count;
+                            }
+                            continue;
+                         }
+
+                         double slope = (y2-y1)/(x2-x1);
+                         int count = check(points,i,j,y1,x1,slope,size)+1;
+                         if(count > res){
+                            res = count;
+                         }
+                     }
+                 } 
+
+                 return res;  
+
+    }
+};
