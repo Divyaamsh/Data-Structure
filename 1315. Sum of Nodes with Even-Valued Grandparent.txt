@@ -1,0 +1,44 @@
+class Solution {
+        void check(TreeNode* root,int &sum){
+                  if(root == NULL){
+                     return; 
+                  }
+
+                  int value = root->val;
+                  if(value%2 == 0){
+                     TreeNode *lef = root -> left;  
+                     TreeNode *righ = root -> right;
+                     
+                     if(lef){
+                        if(lef->left){
+                           sum = sum + lef->left->val; 
+                        }
+                        if(lef->right){
+                           sum = sum + lef->right->val; 
+                        }    
+                     }
+                     if(righ){
+                        if(righ->left){
+                           sum = sum + righ->left->val; 
+                        }
+                        if(righ->right){
+                           sum = sum + righ->right->val; 
+                        } 
+                     }
+
+                  }
+
+                  check(root->left,sum);
+                  check(root->right,sum);
+
+        } 
+         
+public:
+    int sumEvenGrandparent(TreeNode* root) {
+                    int sum = 0;
+                    check(root,sum);
+
+                    return sum;  
+         
+    }
+};
