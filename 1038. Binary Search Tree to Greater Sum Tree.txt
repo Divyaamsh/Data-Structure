@@ -1,0 +1,25 @@
+class Solution {
+        void check(TreeNode* root,int &sum){
+                  if(root == NULL){
+                     return; 
+                  }
+                  
+                  check(root->right,sum);
+                  sum = sum + root->val;
+                  root->val = sum;  
+                  check(root->left,sum);
+                  
+        }  
+
+
+public:
+    TreeNode* bstToGst(TreeNode* root) {
+                   TreeNode* q = root;
+                   int a = 0;
+
+                   check(root,a); 
+                   return q;  
+
+    }
+};
+
