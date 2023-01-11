@@ -1,0 +1,49 @@
+#include <unordered_map>
+
+class Solution {
+        void check(TreeNode* root,int level,unordered_map <int,vector<long long>> &ourmap){
+                  if(root == NULL){
+                     return;    
+                  }
+                  
+                  if(ourmap.count(level) > 0){
+                     vector<long long> &v = ourmap[level];
+                     v[0]++;
+                     v[1] = v[1] + root-> val;
+                  }
+                  else{
+                     vector<long long> v;
+                     v.push_back(1); 
+                     v.push_back(root->val);
+                     pair <int,vector<long long>> p(level,v);
+                     ourmap.insert(p);
+                  }
+
+                  check(root->left,level+1,ourmap);
+                  check(root->right,level+1,ourmap);
+                  
+        }
+
+
+public:
+    vector<double> averageOfLevels(TreeNode* root) {
+                          unordered_map <int,vector<long long>> ourmap;
+                          vector<double> q;
+                          int i = 0;
+
+                          check(root,0,ourmap);
+                          while(ourmap.count(i) != 0){
+                                vector<long long> v = ourmap[i];
+                                double count = v[0];
+                                double value = v[1]; 
+                                
+                                q.push_back(value/count);
+                                i++;
+
+                          }
+
+                          return q;
+
+    }
+};
+
