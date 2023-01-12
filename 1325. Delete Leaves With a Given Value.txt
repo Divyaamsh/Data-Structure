@@ -1,0 +1,39 @@
+class Solution {
+        bool check(TreeNode* root, int target){
+                  if(root == NULL){
+                     return false; 
+                  }  
+
+                  int res = false;
+                  if(root->val != target){
+                     res = true; 
+                  }
+
+                  bool res1 = check(root->left,target);
+                  if(!res1){
+                     root->left = NULL; 
+                  }
+                  bool res2 = check(root->right,target);
+                  if(!res2){                   
+                     root->right = NULL;
+                  }
+
+                  if(res || res1 || res2){
+                     return true; 
+                  }
+                  return false;
+
+        }
+
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+                    bool res = check(root,target);              
+                    if(res == false && root->val == target){
+                       return NULL; 
+                    }
+
+                    return root;   
+    
+    }
+};
+
