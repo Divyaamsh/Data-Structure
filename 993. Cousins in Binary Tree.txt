@@ -1,0 +1,56 @@
+#include <unordered_map>
+
+class Solution {
+        void check2(int value,int level,vector <pair<int,int>> &v){
+                   pair<int,int> p(value,level); 
+                   v.push_back(p); 
+
+        }
+
+        void check(TreeNode* root,vector <pair<int,int>> &v,int x,int y,int level){
+                  if(root == NULL){
+                     return; 
+                  }   
+
+                  int value = root -> val;               
+                  if(root->left){
+                     int value1 = root->left->val;
+                     if(value1 == x){
+                        check2(value,level,v);  
+                     }   
+                     if(value1 == y){
+                        check2(value,level,v); 
+                     }            
+                  }  
+                  if(root->right){
+                     int value2 = root->right->val; 
+                     if(value2 == x){
+                        check2(value,level,v); 
+                     }   
+                     if(value2 == y){
+                        check2(value,level,v); 
+                     }
+                  }            
+
+                  check(root->left,v,x,y,level+1);
+                  check(root->right,v,x,y,level+1); 
+
+        }  
+
+
+public:
+    bool isCousins(TreeNode* root, int x, int y) {
+                  vector <pair<int,int>> v;  
+
+                  check(root,v,x,y,0);
+                  if(v.size() != 2){
+                     return false; 
+                  } 
+
+                  if(v[0].first != v[1].first && v[0].second == v[1].second){
+                     return true; 
+                  }
+                  return false;
+
+    }
+};
