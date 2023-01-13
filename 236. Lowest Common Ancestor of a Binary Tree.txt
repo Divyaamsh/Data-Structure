@@ -1,0 +1,35 @@
+class Solution {
+        bool check(TreeNode* root,int value1,int value2,TreeNode* &result){
+                  if(root == NULL || result != NULL){
+                     return false; 
+                  }               
+                  
+                  bool res = false;
+                  if(value1 == root->val || value2 == root->val){
+                     res = true; 
+                  }     
+
+                  bool res1 = check(root->left,value1,value2,result);
+                  bool res2 = check(root->right,value1,value2,result);  
+
+                  if((res1 && res2) || (res && res1) || (res && res2)){
+                     result =  root;
+                     return false;
+                  }  
+
+                  return(res1 || res2 || res);
+
+        }
+
+
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+                          TreeNode *res = NULL;
+                          int value1 = p->val;
+                          int value2 = q->val;
+                          check(root,value1,value2,res);                                     
+                          
+                          return res;
+                          
+    }
+};
