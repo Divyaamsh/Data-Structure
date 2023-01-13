@@ -1,0 +1,45 @@
+class Solution {
+        bool check2(TreeNode* root, TreeNode* subRoot){
+                    if(root == NULL && subRoot == NULL){
+                       return true; 
+                    }
+                    if(root == NULL || subRoot == NULL){
+                       return false; 
+                    } 
+                    
+                    bool res = true;
+                    if(root -> val != subRoot -> val){
+                       res = false; 
+                    } 
+                    bool res1 = check2(root->left,subRoot->left);
+                    bool res2 = check2(root->right,subRoot->right);
+
+                    return(res1 && res2 && res);
+
+        }
+         
+        void check(TreeNode* root, TreeNode* subRoot,bool &res){
+                  if(root == NULL || res){
+                     return; 
+                  }
+                  if(root -> val == subRoot -> val){
+                     res = check2(root,subRoot);
+                     if(res == true){
+                        return; 
+                     }                      
+                  }
+
+                  check(root->left,subRoot,res);  
+                  check(root->right,subRoot,res); 
+
+        }
+
+public:
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+                  bool res = false;  
+                  check(root,subRoot,res);                                                
+                   
+                  return res;
+
+    }
+};
