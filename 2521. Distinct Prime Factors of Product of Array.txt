@@ -1,0 +1,65 @@
+class Solution {
+public:
+    int distinctPrimeFactors(vector<int>& nums) {
+                       vector <int> primeNumbers;
+                       unordered_map <int,int> ourmap; 
+        
+                       int count = 0;
+                       int size = nums.size();
+                       int right = *max_element(nums.begin(),nums.end()); 
+        
+                       bool *helperPrime = new bool[right+1]{0};                  
+                       int i = 0;
+        
+                       for(i=2; i*i<=right; i++){
+                           if(!helperPrime[i]){
+                               primeNumbers.push_back(i); 
+                               int g = i+i;
+                               while(g <= right){
+                                     helperPrime[g] = true;                                    
+                                     g = g + i;
+                               }
+                               
+                           }
+                       }    
+        
+                       for(;i<=right;i++){
+                           if(!helperPrime[i]){
+                                  primeNumbers.push_back(i); 
+                           }   
+                       }
+                     
+                           
+                       int size2 = primeNumbers.size(); 
+                       for(int j=0;j<size; j++){
+                           int value = nums[j];
+                           
+                           while(value != 1){
+                                int a = 0;
+                                while(primeNumbers[a] <= value){
+                                      if(value % primeNumbers[a] == 0){
+                                         value = value / primeNumbers[a];
+                                         if(ourmap.count(primeNumbers[a]) > 0){
+                                             
+                                         }
+                                         else{
+                                             pair <int,int> p(primeNumbers[a],1);
+                                             ourmap.insert(p);
+                                             count++;
+                                         } 
+                                          
+                                         a = 0; 
+                                         continue; 
+                                      }  
+                                      a++;
+                                } 
+                           }
+                           
+                           
+                       }             
+                          
+                       return count;   
+                      
+    }
+};
+
