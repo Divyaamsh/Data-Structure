@@ -1,0 +1,70 @@
+#include <unordered_map>
+#include <algorithm>
+
+class Solution {
+        void check(TreeNode* root,unordered_map <int,pair<int,int>> &ourmap,vector <int> &helper){
+                  if(!root){
+                     return; 
+                  }
+                  
+                  int leftData = -1;
+                  int rightData = -1;
+                  if(root->left){
+                     leftData = root->left->val; 
+                  }
+                  if(root->right){
+                     rightData = root->right->val;  
+                  }                 
+                   
+                  pair <int,int> p(leftData,rightData);
+                  pair<int,pair<int,int>> p1(root->val,p);
+                  ourmap.insert(p1);
+                  helper.push_back(root->val); 
+                  
+                  check(root->left,ourmap,helper);
+                  check(root->right,ourmap,helper);
+
+        }
+        
+
+public:
+    bool flipEquiv(TreeNode* root1, TreeNode* root2) {
+                  unordered_map <int,pair<int,int>> ourmap1;
+                  unordered_map <int,pair<int,int>> ourmap2;   
+                  vector <int> helper1;
+                  vector <int> helper2; 
+
+                  check(root1,ourmap1,helper1);
+                  check(root2,ourmap2,helper2);  
+                  sort(helper1.begin(),helper1.end());
+                  sort(helper2.begin(),helper2.end());
+
+                  if(helper1 != helper2 ){
+                     return false; 
+                  } 
+
+                  int size = helper1.size();
+                  for(int i=0; i<size; i++){
+                      pair <int,int> p1 = ourmap1[helper1[i]];
+                      pair <int,int> p2 = ourmap2[helper1[i]];
+
+                      int x1  = p1.first;
+                      int x2 = p1.second;
+
+                      int y1 = p2.first;
+                      int y2 = p2.second;
+
+                      if((x1 == y1 && x2 == y2) || (x1 == y2 && x2 == y1)){
+                         continue; 
+                      }
+                      else{
+                          return false;
+                      }
+
+                  } 
+
+                  return true;
+
+    }
+};
+
