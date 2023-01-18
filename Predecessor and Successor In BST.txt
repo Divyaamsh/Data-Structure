@@ -1,0 +1,45 @@
+void check(binaryTreeNode *root,vector<int> &res){
+          if(root == NULL){
+             return ; 
+          } 
+          check(root->left,res);
+          res.push_back(root->data);
+          check(root->right,res);   
+    
+}
+
+vector<int> findPreSuc(binaryTreeNode *root, int key){
+                   vector <int> result;
+                   vector <int> res;
+                   check(root,result);
+                   
+                   int i = 0;
+                   while(i<result.size()){
+                        if(result[i] == key){
+                           break; 
+                        }
+                        i++;
+                   }
+    
+                   if(i == 0){
+                      res.push_back(-1); 
+                   }
+                   if(i != 0){
+                      res.push_back(result[i-1]); 
+                   }
+    
+                   if(i == result.size()-1){
+                      res.push_back(-1); 
+                   }
+                   if(i != result.size()-1){
+                      res.push_back(result[i+1]);          
+                   }   
+    
+    
+    
+    
+                   
+                  return res;
+    
+}
+
