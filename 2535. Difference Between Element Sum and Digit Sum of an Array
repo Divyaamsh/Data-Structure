@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int differenceOfSum(vector<int>& nums) {
+                  int size = nums.size();
+                  int elementsum = 0;
+                  int digitsum = 0;
+        
+        
+                  for(int i=0; i<size; i++){
+                      elementsum = elementsum + nums[i];
+                      int y = nums[i];
+                      while(y>0){
+                           int val = y %10;
+                           digitsum = digitsum + val; 
+                           y = y - val;
+                           y = y /10;
+                      }
+                  }
+        
+                  return (abs(digitsum - elementsum));
+        
+    }
+};
