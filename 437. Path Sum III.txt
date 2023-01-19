@@ -1,0 +1,33 @@
+class Solution {
+        void check(TreeNode* root,long long targetSum,vector<long long> v,int size,int &count){
+                  if(!root){
+                     return; 
+                  } 
+
+                  int value = root->val;
+                  size++;
+                  v.push_back(0);
+                  for(int i=0; i<size; i++){
+                      long long sum = v[i] + value;
+                      if(sum == targetSum){
+                         count++; 
+                      }
+                      v[i] = sum;
+                  }
+
+                  check(root->left,targetSum,v,size,count);     
+                  check(root->right,targetSum,v,size,count);
+
+        }
+
+public:
+    int pathSum(TreeNode* root, int targetSum) {
+               int count = 0;
+               vector<long long> v;
+
+               check(root,targetSum,v,0,count);         
+               return count;
+               
+    }
+};
+
