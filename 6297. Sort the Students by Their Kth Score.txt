@@ -1,0 +1,41 @@
+#include <unordered_map>
+#include <algorithm>
+
+class Solution {
+public:
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+                            int sizeC = score.size();
+                            int sizeR = score[0].size();
+                            unordered_map <int,vector<int>> ourmap;
+                            vector <int> help; 
+                            //vector<vector<int>> result(sizeC, vector<int>(sizeR, 0));  
+                              
+        
+                            for(int i=0; i<sizeC;i++){
+                                vector <int> v;
+                                for(int j=0; j<sizeR; j++){
+                                    if(k == j){
+                                       help.push_back(score[i][j]); 
+                                    }
+                                    v.push_back(score[i][j]);
+                                    
+                                }
+                                pair <int,vector<int>> p(score[i][k],v);
+                                ourmap.insert(p);    
+                            }
+        
+                            sort(help.begin(),help.end());  
+                            int l = help.size()-1;
+                            vector<vector<int>> result; 
+        
+                            while(l >-1){
+                                 result.push_back(ourmap[help[l]]);
+                                 l--;
+                            } 
+                             
+                             return result;
+                             
+    }
+};
+
+
