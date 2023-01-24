@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool makeStringsEqual(string s, string target) {
+                    int sizeS = s.size();
+                    int sizeT = target.size();
+                    if(s == target){
+                       return true;   
+                    }
+        
+                    int i = 0;
+                    bool ones = false;
+                    bool zeros = false;
+                    bool oneT = false;
+                    bool zeroT = false;                         
+        
+                    while(i < sizeS){
+                         if(target[i] == '1'){
+                            oneT = true; 
+                         }
+                         if(target[i] == '0'){
+                            zeroT = true; 
+                         }
+                         if(s[i] == '1'){
+                            ones = true; 
+                         }
+                         if(s[i] == '0'){
+                            zeros = true; 
+                         }
+                         i++;
+                    }  
+        
+                    if(zeros && zeroT && ones && !oneT){
+                       return false; 
+                    }
+                    if(zeros && zeroT && !ones && oneT){
+                       return false; 
+                    }
+                     
+                    if(ones && !zeros && !oneT && zeroT){
+                       return false; 
+                    }
+                     if(!ones && zeros && oneT && !zeroT){
+                       return false; 
+                    }   
+        
+                    return true;
+                     
+    }
+};
