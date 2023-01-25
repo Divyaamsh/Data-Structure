@@ -1,0 +1,66 @@
+#include <unordered_map>
+#include <vector>
+
+class Solution {
+        void check(TreeNode* root,int i,unordered_map <int,vector<int>> &ourmap){
+                  if(root == NULL){
+                     return; 
+                  }
+
+                  if(ourmap.count(i) > 0){
+                     vector <int> &v = ourmap[i];
+                     v.push_back(root->val);
+                  }
+                  else{
+                     vector <int> v;
+                     v.push_back(root->val);
+                     pair <int,vector<int>> p(i,v);
+                     ourmap.insert(p);
+                  }
+
+                  check(root->left,i+1,ourmap);
+                  check(root->right,i+1,ourmap);
+
+        }
+
+
+public:
+    bool isEvenOddTree(TreeNode* root) {
+                  unordered_map <int,vector<int>> ourmap;                     
+                  check(root,0,ourmap);
+                  int i = 0;
+
+                  while(ourmap.count(i) > 0){
+                        vector <int> &v = ourmap[i];
+                        int size = v.size();                        
+                        
+                        if(i % 2 == 0){
+                           if(v[0] % 2 == 0){
+                              return false; 
+                           } 
+                           for(int k=0; k<size-1; k++){
+                               if(v[k+1] <= v[k] || v[k+1] % 2 == 0 || v[k]%2 == 0){
+                                  return false; 
+                               }
+                           } 
+                        } 
+                        else{
+                            if(v[0] % 2 != 0){
+                              return false; 
+                            } 
+                            for(int k=0; k<size-1; k++){
+                               if(v[k+1] >= v[k] || v[k+1]%2 != 0 || v[k]%2 != 0){
+                                  return false; 
+                               }
+                           }  
+                        }
+
+                        i++;
+                  }
+                     
+                  return true;
+                   
+    }
+};
+
+
