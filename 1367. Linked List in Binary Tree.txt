@@ -1,0 +1,46 @@
+class Solution {
+        void check2(ListNode* head, TreeNode* root,bool &result){ 
+                   if(head == NULL){
+                      result = true;
+                      return; 
+                   }
+                   if(root == NULL){
+                      return; 
+                   }
+
+                   if(root->val == head->val){
+                      check2(head->next,root->left,result);
+                      check2(head->next,root->right,result);
+                   }                      
+
+        }
+        
+        void check(ListNode* head, TreeNode* root,int &val,bool &result){
+                  if(root == NULL){
+                     return; 
+                  }        
+                  
+                  if(root->val == val){
+                     check2(head,root,result);
+                     if(result){
+                        return; 
+                     }
+                  } 
+                  
+                  check(head,root->left,val,result);
+                  check(head,root->right,val,result);
+        
+        }           
+           
+
+public:
+    bool isSubPath(ListNode* head, TreeNode* root) {
+                  bool result = false;
+                  int val = head->val; 
+                  check(head,root,val,result);
+
+                  return result; 
+                   
+    }
+};
+
