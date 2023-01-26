@@ -1,0 +1,33 @@
+class Solution {
+        void check(TreeNode* root,vector<int> &result){
+                  if(root == NULL){
+                     return; 
+                  }
+
+                  check(root->left,result);
+                  result.push_back(root->val); 
+                  check(root->right,result);
+
+        } 
+
+public:
+    TreeNode* increasingBST(TreeNode* root){
+                        vector<int> result; 
+                        check(root,result);
+                        int size = result.size();
+                        TreeNode * newRoot = new TreeNode(result[0]);
+                        TreeNode * parent = newRoot;
+                        int i=1; 
+                        
+                        while(i < size){
+                             TreeNode * q = new TreeNode(result[i]); 
+                             newRoot->right = q;
+                             newRoot = q;
+                             i++;
+                        }
+
+                        return parent;  
+                        
+    }
+};
+
