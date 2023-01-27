@@ -1,0 +1,48 @@
+#include <vector>
+
+class Solution {
+        bool check(string s,string t,int sizes,int sizet,vector <vector<int>> &result){
+                  if(sizes == 0){
+                     return true; 
+                  }
+                  if(sizet == 0){
+                     return false; 
+                  }
+
+                  if(result[sizes][sizet] != 0){
+                     if(result[sizes][sizet] > 0){
+                        return true; 
+                     }
+                     return false; 
+                  }   
+
+                  bool res1 = false;
+                  bool res2 = false;
+                  if(s[sizes-1] == t[sizet-1]){
+                     res1 = check(s,t,sizes-1,sizet-1,result);
+                  }
+                  res2 = check(s,t,sizes,sizet-1,result);  
+                  bool res = res1 || res2;
+
+                  if(res){
+                     result[sizes][sizet] = 1; 
+                  }
+                  if(!(res)){
+                     result[sizes][sizet] = -1;
+                  }
+
+                  return (res);
+
+        }
+
+public:
+    bool isSubsequence(string s, string t) {
+                   int sizes = s.size();                    
+                   int sizet = t.size();
+                   vector <vector<int>> result(sizes+1,vector<int>(sizet+1,0));
+
+                   return check(s,t,sizes,sizet,result); 
+                   
+    }
+};
+
