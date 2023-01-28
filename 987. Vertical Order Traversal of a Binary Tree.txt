@@ -1,0 +1,54 @@
+#include <unordered_map>
+#include <algorithm>
+
+class Solution {
+        void check(TreeNode* root,int level,int value,unordered_map <int,vector<pair<int,int>>> &ourmap,vector <int> &helper){
+                  if(root == NULL){
+                     return; 
+                  }
+
+                  if(ourmap.count(value) > 0){
+                     vector <pair<int,int>> &v = ourmap[value];
+                     pair <int,int> l(level,root->val);
+                     v.push_back(l);    
+                  }
+                  else{
+                     vector <pair<int,int>> v;
+                     pair<int,int> j(level,root->val);
+                     v.push_back(j);
+                     pair <int,vector<pair<int,int>>> p(value,v);
+                     ourmap.insert(p);
+                     helper.push_back(value);   
+                  }
+
+                  check(root->left,level+1,value-1,ourmap,helper);
+                  check(root->right,level+1,value+1,ourmap,helper); 
+
+        }
+
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+                                vector<vector<int>> res;
+                                vector <int> helper;
+                                unordered_map <int,vector<pair<int,int>>> ourmap;
+                                
+                                check(root,0,0,ourmap,helper);        
+                                sort(helper.begin(),helper.end());
+                                int size = helper.size(); 
+
+                                for(int i=0; i<size; i++){
+                                    vector <pair<int,int>> v = ourmap[helper[i]];
+                                    sort(v.begin(),v.end());
+                                    vector <int> help;
+                                    for(int j=0; j<v.size(); j++){
+                                        help.push_back(v[j].second);
+                                    }
+                                    res.push_back(help);
+                                }
+
+                                return res;
+                                
+    }
+};
+
+
