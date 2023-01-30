@@ -1,0 +1,47 @@
+class Solution {
+        void check(vector<int>& nums,int i,int size,int sum,int target,int &result){
+                  if(i == size){
+                    if(sum == target){
+                       result++; 
+                    }
+                    return;
+                  }
+                
+                  check(nums,i+1,size,sum+nums[i],target,result);
+                  check(nums,i+1,size,sum-nums[i],target,result);
+
+
+        }     
+
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+                  int size = nums.size();
+                  /* 
+                  vector<vector<int>> helper(size+1,vector<int>(target+1,0));
+
+                  for(int i=0; i<size+1; i++){
+                      helper[i][0] = 1;
+                  }
+
+                  for(int i=1; i<size+1; i++){
+                     for(int j=1; j<target+1; j++){
+                         if(nums[i-1] <= j){
+                           helper[i][j] = helper[i-1][j-nums[i-1]] + helper[i-1][j];  
+                         }
+                         else{
+                           helper[i][j] = helper[i-1][j];  
+                         }
+                     } 
+                  }
+
+                  return helper[size][target];
+                  */
+                    
+                  int result = 0;  
+                  check(nums,0,size,0,target,result);
+                  
+                  return result;  
+                  
+    }
+};
+
