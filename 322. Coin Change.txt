@@ -1,0 +1,45 @@
+#include <algorithm>
+#include <climits>
+
+class Solution {
+        int check(vector<int>& coins,int amount,int i,vector<vector<int>> &helper){
+                  if(i <= -1 || amount < 0){
+                     return (INT_MAX-100000); 
+                  }
+                  if(amount == 0){
+                     return 0; 
+                  }
+            
+                   if(helper[i][amount] != 0){
+                      return helper[i][amount]; 
+                   }
+
+                  int h = i-1;
+                  int jj = amount;
+                  int res1 = check(coins,amount,h,helper);
+                  amount = amount - coins[i];
+                  int res2 = 1 + check(coins,amount,i,helper);
+                  int res3 = 1 + check(coins,amount,h,helper);
+
+                  helper[i][jj] = min(res1,min(res2,res3)); 
+                  return(helper[i][jj]);  
+            
+        }
+    
+public:
+    int coinChange(vector<int>& coins, int amount) {
+                  int count = 0;
+                  int size = coins.size();
+                  sort(coins.begin(),coins.end());
+                  if(amount == 0){return 0;}
+                  vector<vector<int>> helper(size+1,vector<int>(amount+1,0));  
+
+                  int answer = check(coins,amount,size-1,helper);
+                  if(answer > 100000){
+                     return -1; 
+                  }          
+        
+                  return answer;        
+    
+    }
+};
