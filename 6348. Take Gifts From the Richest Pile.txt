@@ -1,0 +1,26 @@
+#include <cmath>
+#include <queue>
+
+class Solution {
+public:
+    long long pickGifts(vector<int>& gifts, int k) {
+                  int size = gifts.size();
+                  long long sum = 0;
+                  priority_queue <int> pq;
+        
+                  for(int i=0; i<size; i++){
+                      sum = sum + gifts[i];
+                      pq.push(gifts[i]);
+                  }  
+                  while(k--){
+                       int q = pq.top();
+                       int ans = sqrt(q);
+                       //sum = sum + ans;
+                       pq.pop();
+                       sum = sum - (q - ans);
+                       pq.push(ans);
+                  }
+                  
+                  return sum;  
+    }
+};
