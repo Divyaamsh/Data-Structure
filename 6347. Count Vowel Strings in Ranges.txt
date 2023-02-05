@@ -1,0 +1,54 @@
+class Solution {
+        bool check(char ch){
+                  if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ){
+                     return true; 
+                  }
+                  return false; 
+        }
+    
+public:
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+                     int size = words.size();
+                     int count = 0;
+                     int *arr = new int[size+1];  
+                      
+                     for(int i=0; i<size; i++){
+                         string ans = words[i];
+                         int len = ans.size();
+                         if(check(ans[0]) && check(ans[len-1])){
+                            count++;                               
+                         }
+                         arr[i] = count; 
+                     }
+                     vector <int> ans;
+        
+                     int len = queries.size();
+                     for(int i=0; i<len; i++){
+                         vector<int> v = queries[i];
+                         int start = v[0];
+                         int end = v[1];
+                         if(start == end){
+                            string ww = words[end];
+                            int aa = ww.size(); 
+                            if(check(ww[0]) && check(ww[aa-1])){
+                               ans.push_back(1);  
+                            }
+                            else{
+                               ans.push_back(0); 
+                            }
+                            continue;               
+                         }
+                         
+                         if(start != 0){
+                            int qq = arr[end] - arr[start-1];  
+                            ans.push_back(qq); 
+                         }
+                         else{
+                            ans.push_back(arr[end]); 
+                         }                  
+                                           
+                     }
+        
+                     return ans; 
+    }
+};
