@@ -1,0 +1,143 @@
+#include <unordered_map>
+#include <algorithm>
+
+
+class Solution{
+    /*  Method-1
+        int check(string s, string t,int i,int j,string str,vector<string> &result){
+                  if(i == -1 || j == -1){
+                    if(s != ""){
+                       result.push_back(s);    
+                    }  
+                    return 0;   
+                  }
+                  
+                  if(s[i] == s[j]){
+                     str = str + s[i];
+                     result.push_back(str);
+                     return (1+check(s,t,i-1,j-1,str,result)); 
+                  }
+                  else{
+                     int res1 = check(s,t,i,j-1,str,result);  
+                     int res2 = check(s,t,i-1,j,str,result);
+                     return (max(res1,res2));
+                  }
+                  return 0;
+                  
+        }
+    */
+         
+ /*      METHOD-2  
+         int check(string &text1,string &text2,int i,int j,string str,vector <string> &resu,unordered_map <string,int> &ourmap){
+                  if(i == -1 || j == -1){
+                     return 0; 
+                  }
+                  
+                  if(text1[i] == text2[j]){
+                     str = str + text1[i];
+                     if(ourmap.count(str) == 0){
+                        resu.push_back(str);
+                        pair<string,int> p(str,1);
+                        ourmap.insert(p);
+                     }
+                     int res = (1+check(text1,text2,i-1,j-1,str,resu,ourmap)); 
+                     return res;
+                  }
+                  else{
+                      int res1 = check(text1,text2,i-1,j,str,resu,ourmap);
+                      int res2 = check(text1,text2,i,j-1,str,resu,ourmap);
+                      int res =  max(res1,res2);
+                      return res; 
+                  }
+                 
+                  return 0;
+        }
+  */
+  
+  
+        
+	public:
+		vector<string> all_longest_common_subsequences(string s, string t){
+		                                 int sizes = s.size();
+		                                 int sizet = t.size();
+		                                  
+		                          /*       vector<string> resu;
+		                                 int res = 0;
+                                       
+                                         string str = "";
+                                         unordered_map <string,int> ourmap;   
+                                         
+                                         res = check(s,t,sizes-1,sizet-1,str,resu,ourmap); 
+                                         int size = resu.size();
+                                         vector<string> finalresult;
+                                          
+                                         for(int i=0; i<size; i++){
+                                              //cout << resu[i] << " ";
+                                              if(resu[i].size() == res){
+                                                 string qq = resu[i];
+                                                 reverse(qq.begin(),qq.end());
+                                           
+                                                 finalresult.push_back(qq);
+                                              }
+                                         }
+                                
+		                                sort(finalresult.begin(),finalresult.end());
+		                                //cout << endl;    
+		                                  
+		                                return finalresult;                        
+	                                    
+	                              */
+	                                     
+	                                    vector <string> v;
+	                                    v.push_back("");
+	                                    vector<vector<vector<string>>> helper(sizes+1,vector<vector<string>>(sizet+1,v));  
+	                                    
+	                                    for(int i=1; i<sizes+1; i++){
+	                                        for(int j=1; j<sizet+1; j++){
+	                                            if(s[i-1] == t[j-1]){
+	                                               vector <string> v =  helper[i-1][j-1];
+	                                               int size = v.size();
+	                                               for(int k=0; k<size; k++){
+	                                                   v[k] = v[k] + s[i-1]; 
+	                                               }
+                                                   helper[i][j] = v;
+                                                }   
+                                                else{
+                                                   vector<string> res1 = helper[i-1][j];
+                                                   vector<string> res2 = helper[i][j-1];
+                                                    
+                                                   //vector<string> res;
+                                                   if(res1[0].size() == res2[0].size()){
+                                                      int size = res2.size();
+                                                      for(int k=0; k<size; k++){
+                                                          res1.push_back(res2[k]);
+                                                      }
+                                                      sort(res1.begin(),res1.end());
+	                                                  vector<string> ::iterator ip;
+	                                                  ip = std::unique(res1.begin(), res1.end());
+	                                                  res1.resize(std::distance(res1.begin(), ip));
+                                                      
+                                                      
+                                                      helper[i][j] = res1;
+                                                   }
+                                                   else if(res1[0].size() > res2[0].size()){
+                                                      helper[i][j] = res1; 
+                                                   }
+                                                   else{
+                                                   helper[i][j] = res2;} 
+                                                    
+                                                   //helper[i][j] = max(helper[i-1][j],helper[i][j-1]);
+                                                } 
+	                                        }
+	                                    }
+	                                     
+	                                    vector <string> res = helper[sizes][sizet];
+	                                   /* sort(res.begin(),res.end());
+	                                    vector<string> ::iterator ip;
+	                                    ip = std::unique(res.begin(), res.end());
+	                                    res.resize(std::distance(res.begin(), ip));
+	                                    */
+	                                    
+	                                    return res; 
+		}
+};
