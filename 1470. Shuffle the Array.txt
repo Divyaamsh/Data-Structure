@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> shuffle(vector<int>& nums, int n) {
+                       vector<int> res;
+                       int size = nums.size();
+                       int y = size/2; 
+                       int i = 0;
+                       int j = y;
+
+                       while(i < y){
+                            res.push_back(nums[i]);
+                            res.push_back(nums[j]);
+                            i++;
+                            j++; 
+                       }
+                       
+                       return res;
+
+    }
+};
+
