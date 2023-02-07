@@ -1,0 +1,41 @@
+class Solution {
+        void check(TreeNode *root,vector <int> &helper){
+                  if(root  == NULL){
+                     return; 
+                  }
+                   
+                 // helper.push_back(root->val);
+                   
+                  check(root->left,helper);
+                  check(root->right,helper); 
+                  
+                  root->right  = root;
+                  root->left = NULL;
+        }  
+
+public:
+    void flatten(TreeNode* root) {
+                vector <int> helper;  
+
+                check(root,helper);
+             /*   int i = 1;
+                int size = helper.size();
+                if(!root){
+                   return; 
+                }
+
+                root -> val = helper[0];
+                TreeNode *help = root; 
+
+                while(i<size){
+                      TreeNode* newR = new TreeNode(helper[i]);
+                      help -> right = newR;
+                      help->left = NULL;
+                      help = newR;
+                      i++;
+                } 
+
+               */
+
+    }
+};
