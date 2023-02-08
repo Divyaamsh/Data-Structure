@@ -1,0 +1,35 @@
+class Solution {
+        int check(vector<int>& nums,int &size,int i,vector<int> &helper){
+                 if(i >= size-1){
+                    return 0; 
+                 } 
+
+                 if(helper[i] != -1){
+                    return helper[i]; 
+                 }
+
+                 int minimum = INT_MAX - 100;
+                 int value = nums[i];
+                 for(int j=1; j<=value; j++){
+                     minimum = min(minimum,(1 + check(nums,size,i+j,helper)));
+                 }
+                 helper[i] = minimum;  
+
+                 return minimum;
+
+        } 
+        
+public:
+    int jump(vector<int>& nums) {
+            int size = nums.size();
+            vector <int> helper(size+1,0);
+            for(int i=0; i<size+1; i++){
+                helper[i] = -1;
+            }
+
+            int res = check(nums,size,0,helper);
+            return res;            
+            
+    }
+};
+
