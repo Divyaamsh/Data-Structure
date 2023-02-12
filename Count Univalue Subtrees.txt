@@ -1,0 +1,36 @@
+int check(BinaryTreeNode<int> *root,int &count){
+          if(root->left == NULL && root->right == NULL){
+             count++;
+             return root->data; 
+          }
+            
+          int rootData = root->data;
+          int leftData = root->data;
+          int rightData = root->data;  
+    
+          if(root->left){  
+             leftData = check(root->left,count);
+          }
+          if(root->right){
+             rightData = check(root->right,count);
+          }
+    
+          if((rootData == leftData) && (leftData == rightData)){
+            
+             count++;
+             return rootData; 
+          }
+    
+          return -1;
+    
+}
+
+int countUnivalTrees(BinaryTreeNode<int> *root){
+               int count = 0;
+               if(!root){return count;}
+               int res = check(root,count); 
+                
+               return count;
+
+}
+
