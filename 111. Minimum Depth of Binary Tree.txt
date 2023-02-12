@@ -1,0 +1,26 @@
+class Solution {
+        int check(TreeNode* root){
+                 if(root == NULL){
+                    return 10000; 
+                 }
+                 if(root->left == NULL && root->right == NULL){
+                    return 1; 
+                 }       
+
+                 int res1 = 1 + check(root->left);
+                 int res2 = 1 + check(root->right);
+           
+                 return (min(res1,res2));
+        }  
+
+public:
+    int minDepth(TreeNode* root) {
+           if(root == NULL){
+              return 0; 
+           }
+           
+           return (check(root));
+    
+    }
+};
+
