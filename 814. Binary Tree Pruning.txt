@@ -1,0 +1,39 @@
+class Solution {
+        bool check(TreeNode* root){
+                  if(root == NULL){
+                     return false; 
+                  }
+                
+                  bool left = check(root->left);
+                  if(left == false){
+                     root -> left = NULL; 
+                  }  
+                  bool right = check(root->right);
+                  if(right == false){
+                     root -> right = NULL; 
+                  }
+                  bool res = false;
+
+                  if(root -> val == 1){
+                     res = true; 
+                  }
+                  if(res || left || right){
+                     return true; 
+                  }
+                  return false; 
+
+        }
+
+public:
+    TreeNode* pruneTree(TreeNode* root) { 
+                   bool res = check(root);
+                   if(res == false){
+                      return NULL; 
+                   }      
+
+                   return root;
+
+    }
+};
+
+
