@@ -1,0 +1,43 @@
+#include <unordered_map>
+
+class Solution {
+        void check(Node* root,int level,unordered_map <int,vector<int>> &ourmap){
+                  if(root == NULL){
+                     return; 
+                  }
+                   
+                  if(ourmap.count(level) > 0){
+                     vector <int> &v = ourmap[level];
+                     v.push_back(root->val);
+                  }
+                  else{
+                     vector <int> v;
+                     v.push_back(root->val);
+                     pair <int,vector<int>> p(level,v);
+                     ourmap.insert(p);
+                  }
+                   
+                  int size = (root->children).size();
+                  for(int i=0; i<size; i++){
+                      check(root->children[i],level+1,ourmap);
+                  }
+                  
+        }              
+
+public:
+    vector<vector<int>> levelOrder(Node* root) {
+                             unordered_map <int,vector<int>> ourmap;
+                             vector<vector<int>> result; 
+                             int i = 0;
+                              
+                             check(root,0,ourmap);   
+                             while(ourmap.count(i) > 0){
+                                   result.push_back(ourmap[i]);
+                                   i++;
+                             } 
+                              
+                             return result;
+
+    }
+};
+
