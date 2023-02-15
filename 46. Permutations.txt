@@ -1,0 +1,27 @@
+class Solution {
+        void check(vector<int>& nums,vector<vector<int>> &result,int l,int r){
+                   if (l == r){
+                       result.push_back(nums);
+                   }
+                           
+    else {
+        
+        for (int i = l; i <= r; i++) {
+            swap(nums[l], nums[i]);
+            check(nums, result,l + 1, r);
+            swap(nums[l], nums[i]);
+        }
+    }
+} 
+
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+                               int size = nums.size();
+                               vector<vector<int>> result;
+
+                               check(nums,result,0,size-1);
+                               return result;
+
+    }
+};
+

@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int getXORSum(vector<int>& arr1, vector<int>& arr2) {
+           int size1 = arr1.size();
+           int size2 = arr2.size();
+           int res = 0;
+           int res1 = 0;
+
+           for(int i=0; i<size2; i++){
+               res = res ^ arr2[i];
+           }
+           for(int i=0; i<size1; i++){
+               res1 = res1 ^ (res & arr1[i]);
+           }  
+
+           return res1;  
+
+    }
+};

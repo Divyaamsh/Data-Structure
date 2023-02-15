@@ -1,0 +1,35 @@
+#include <string>
+
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+                    vector<int> res;
+                 
+                    for(int i=left; i<=right; i++){
+                        string s = to_string(i);
+                        int size = s.size();
+                        int l = 0;
+                        bool flag = true;  
+
+                        while(l < size){
+                             if(s[l] == '0'){
+                                flag = false;        
+                                break; 
+                             }
+                             int j = i % (s[l] - '0');
+                             if(j != 0){
+                                flag = false;        
+                                break;
+                             }
+                             l++;
+                        }
+
+                        if(flag){
+                           res.push_back(i);
+                        }
+                        
+                    }        
+
+                    return res;
+    }
+};

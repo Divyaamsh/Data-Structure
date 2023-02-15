@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> addToArrayForm(vector<int>& num, int k) {
+                          int size = num.size();
+                          int carry = 0;
+
+                          for(int i=size-1; i>-1; i--){
+                              int last = k % 10;
+                              k = (k - last) / 10;
+
+                              int res = num[i] + carry + last;
+                              if(res > 9){
+                                 num[i] = res % 10;
+                                 carry = 1; 
+                              }
+                              else{
+                                 num[i] = res;
+                                 carry = 0; 
+                              }    
+
+                          }   
+
+                          if(k != 0){
+                             while(k != 0){
+                                  int last = k % 10;
+                                  k = (k - last) / 10;
+                                  int res = carry + last;
+                                  if(res > 9){
+                                     num.insert(num.begin(),res % 10);
+                                     carry = 1; 
+                                  }
+                                  else{
+                                     num.insert(num.begin(),res);
+                                     carry = 0; 
+                                  }
+                             }
+                          }                             
+                          
+                          if(carry == 1){
+                             num.insert(num.begin(),1); 
+                          }
+                          return num;
+
+
+    }
+};
+

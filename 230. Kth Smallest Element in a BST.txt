@@ -1,0 +1,30 @@
+#include <queue>
+
+class Solution {
+        void check(TreeNode* root,priority_queue <int, vector<int>, greater<int>> &pq){
+                  if(root == NULL){
+                     return; 
+                  }
+
+                  pq.push(root -> val); 
+                  check(root->left,pq);
+                  check(root->right,pq);
+
+        }
+
+public:
+    int kthSmallest(TreeNode* root, int k) {
+            priority_queue <int, vector<int>, greater<int>> pq;
+
+            check(root,pq);
+            k--;
+            while(k > 0){
+                 pq.pop();
+                 k--;
+            }
+
+            return (pq.top());  
+
+    }
+};
+

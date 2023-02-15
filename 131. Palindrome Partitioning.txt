@@ -1,0 +1,65 @@
+class Solution {
+        bool check1(string &s){
+                   int size = s.size();
+                   if(size == 0){
+                      return false; 
+                   }
+                   int i = 0;
+                   int j = size-1;
+                   while(i < j){
+                        if(s[i] != s[j]){
+                           return false; 
+                        } 
+                        i++;
+                        j--;
+                   }    
+
+                   return true;
+
+        }
+
+        void check(string &s,int i,int &size,string help,vector<string> helper,vector<vector<string>> &result){
+                  if(i >= size){ 
+                     if(check1(help)){ 
+                        helper.push_back(help);
+                     }
+                     else{
+                        return; 
+                     }
+                     if(helper.size() == 0){
+                        return ; 
+                     }     
+                     result.push_back(helper); 
+                     return; 
+                  }
+
+                  string q = help + s[i];
+                  check(s,i+1,size,q,helper,result);  
+
+                  if(check1(help)){
+                     helper.push_back(help);
+                     string z = "";
+                     z = z + s[i];
+                     check(s,i+1,size,z,helper,result);  
+                  }              
+                  
+        }
+
+
+public:
+    vector<vector<string>> partition(string s) {
+                                    int size = s.size();
+                                    string str = "";
+                                    vector<vector<string>> result;
+                                    vector <string> helper;
+                                    if(size == 1){
+                                       helper.push_back(s);
+                                       result.push_back(helper);
+                                       return result; 
+                                    }   
+                                    
+                                    check(s,0,size,str,helper,result);   
+                                    return result;
+
+    }
+};
