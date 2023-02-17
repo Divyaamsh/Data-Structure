@@ -1,0 +1,103 @@
+class Solution{
+    
+      /*
+    
+        void check(int price[], int i,int len,int n,int cost,int &maxCost){
+                  if(i == (n+1)){
+                     if(cost > maxCost){
+                        maxCost = cost; 
+                     } 
+                     return;
+                  }
+                  
+                  if(i <= len){
+                     check(price,i,len-i,n,cost+price[i-1],maxCost);
+                     check(price,i+1,len,n,cost,maxCost); 
+                  }
+                  else{
+                    check(price,i+1,len,n,cost,maxCost);  
+                  }
+                  
+                  
+        }
+             */
+             
+             
+        /*     
+        int check(int price[], int i,int len,int n){
+                  if(i == (n+1)){
+                     return 0;
+                  }
+                  
+                  int res = 0;
+                  if(i <= len){
+                     res = max(price[i-1]+check1(price,i,len-i,n),check1(price,i+1,len,n));
+                      
+                  }
+                  else{
+                    res = check1(price,i+1,len,n);  
+                  }
+                  
+                  return res;
+        }     
+          */  
+            
+            
+        int check3(int price[], int i,int len,int n,vector<vector<int>> &helper){
+                  if(i == (n)){
+                     return 0;
+                  }
+                  
+                  if(helper[i][len] != 0){
+                     return helper[i][len]; 
+                  }
+                  
+                  int res = 0;
+                  if(i+1 <= len){
+                     res = max(price[i]+check3(price,i,len-(i+1),n,helper),check3(price,i+1,len,n,helper));
+                      
+                  }
+                  else{
+                    res = check3(price,i+1,len,n,helper);  
+                  }
+                  helper[i][len] = res;
+                  
+                  return res;
+        }        
+             
+        
+  public:
+    int cutRod(int price[], int n) {
+              int cost = 0;
+              int maxCost = -1;
+              
+              //check(price,1,n,n,cost,maxCost);
+              //return maxCost; 
+              
+              //int value = check1(price,0,n,n);
+              //return value;
+             
+              vector<vector<int>> helper(n+1,vector<int>(n+1,0));
+              
+              int value = check3(price,0,n,n,helper);
+              return value;
+              /*
+              vector<vector<int>> helper(n+1,vector<int>(n+1,0));
+              for(int i =0; i<n;i++){
+                  for(int j = 0; j<n; j++){
+                      if(i+1<=j){
+                         helper[i][j] = max(price[i]+helper[i][j-(i+1)],helper[i+1][j]); 
+                      }
+                      else{
+                        helper[i][j] =  helper[i+1][j]; 
+                      }
+                      
+                  }
+              }
+             
+              
+              return helper[n][n];
+              */
+              
+    }
+};
