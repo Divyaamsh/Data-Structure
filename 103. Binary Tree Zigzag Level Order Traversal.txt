@@ -1,0 +1,44 @@
+#include <unordered_map>
+
+class Solution {
+        void check(TreeNode* root,int i,vector<vector<int>> &result,unordered_map <int,int> &ourmap){
+                  if(root == NULL){
+                     return; 
+                  } 
+                  if(!(ourmap.count(i) > 0)){
+                     vector <int> v;
+                     v.push_back(root->val); 
+                     result.push_back(v);
+                     
+                     pair <int,int> p(i,1);
+                     ourmap.insert(p);
+                  }
+                  else{
+                     vector <int> &v = result[i];
+                     v.push_back(root->val); 
+                  }
+                   
+
+                  check(root->left,i+1,result,ourmap); 
+                  check(root->right,i+1,result,ourmap);
+ 
+        }   
+
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+                                   vector<vector<int>> result;
+                                   unordered_map <int,int> ourmap;  
+
+                                   check(root,0,result,ourmap);
+                                   int size = result.size();    
+                                
+                                   for(int i=0; i<size; i++){
+                                       if(i%2 != 0){
+                                          reverse(result[i].begin(),result[i].end()); 
+                                       }
+                                   }
+
+                                   return result;
+
+    }
+};
