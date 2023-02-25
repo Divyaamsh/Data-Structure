@@ -1,0 +1,33 @@
+class Solution {
+        int check(int n){
+                 if(n == 0){
+                    return 0; 
+                 }
+                 int i = 0;
+                 int k = pow(2,i);
+            
+                 while(k <= n){
+                      if(k == n){
+                        return 0; 
+                      }
+                       k = pow(2,i);
+                      i++;  
+                }
+            
+                int h = n - pow(2,i-2);
+                int j = pow(2,i-1) - n;
+                int res1 = 1 + check(h);
+                int res2 = 1 + check(j);
+            
+                return (min(res1,res2));             
+                 
+        }
+    
+public:
+    int minOperations(int n) {
+           int res = 1 + check(n);
+           return res;
+        
+    }
+};
+
