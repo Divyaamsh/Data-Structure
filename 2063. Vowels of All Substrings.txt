@@ -1,0 +1,17 @@
+class Solution {
+public:
+    long long countVowels(string word) {
+                   long long size = word.size();        
+                   long long res = 0;
+                   
+                   for(int i=0; i<size; i++){
+                       char ch = word[i];
+                       if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'){
+                          res = res + (size-i);
+                          res = res + (size-i) * i;
+                       } 
+                   }   
+
+                   return res;              
+    }
+};
