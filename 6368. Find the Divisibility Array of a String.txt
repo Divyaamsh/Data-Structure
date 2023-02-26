@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> divisibilityArray(string word, int m) {
+                            int size = word.size();
+                            vector <int> result;
+                            long long q = 0;
+        
+                            for(int i=0; i<size; i++){
+                                q = q + (word[i] - '0');
+                                if(q % m == 0){
+                                   result.push_back(1);
+                                   q = 0; 
+                                }
+                                else{
+                                   result.push_back(0);
+                                   q = q % m; 
+                                }
+                                
+                                q = q * 10;
+                            }
+        
+                            return result; 
+        
+    }
+};
