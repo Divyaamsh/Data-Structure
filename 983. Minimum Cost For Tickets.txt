@@ -1,0 +1,40 @@
+class Solution {
+        int check(vector<int>& days, vector<int>& costs,int i,int size,vector<int> &helper){
+                 if(i == size){
+                    return 0; 
+                 }
+                 if(helper[i] != 0){
+                    return helper[i]; 
+                 }
+                 
+                 int res1 = costs[0] + check(days,costs,i+1,size,helper);
+                 int j = days[i]+7;
+                 int l = i;
+                 while(l < size && days[l] < j){
+                       l++;   
+                 }                
+                 int res2 = costs[1] + check(days,costs,l,size,helper);
+                 l = i;
+                 j = days[i]+30;
+                 while(l < size && days[l] < j){
+                       l++;   
+                 } 
+                 int res3 = costs[2] + check(days,costs,l,size,helper);
+                 int res = min(res1,min(res2,res3)); 
+
+                 helper[i] = res;
+
+                 return res;  
+        }  
+         
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+               int sizeD = days.size();
+               int value = *max_element(days.begin(),days.end());
+               vector<int> helper(value+1,0);
+
+               int res = check(days,costs,0,sizeD,helper);
+               return res; 
+                
+    }
+};
