@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string interpret(string command) {
+                    int size = command.size(); 
+                    string result = "";
+                    string helper = ""; 
+
+                    for(int i=0; i<size; i++){
+                        helper = helper + command[i];
+                        if(helper == "G"){
+                           result = result + "G";
+                           helper = ""; 
+                        }
+                        else if(helper == "()"){
+                               result = result + "o";
+                               helper = ""; 
+                        }
+                        else if(helper == "(al)"){
+                               result = result + "al";
+                               helper = "";  
+                        } 
+                    }
+                    
+                    return result;
+
+    }
+};
+
+
