@@ -1,0 +1,38 @@
+class Solution {
+        int check(vector<int>& prices,int size,int i,int q,vector<vector<int>> &helper,int fee){
+                  if(i == size){
+                     return 0; 
+                  }
+                  if(helper[i][q] != 0){
+                     return helper[i][q]; 
+                  }
+
+                  int res1 = check(prices,size,i+1,q,helper,fee);
+                  int res2 = 0;
+                  if(q == 0){
+                     res2 = check(prices,size,i+1,1,helper,fee) - prices[i] - fee; 
+                  }  
+                  if(q == 1){
+                     res2 = check(prices,size,i+1,0,helper,fee) + prices[i]; 
+                  } 
+                  helper[i][q] = max(res1,res2); 
+
+                  return max(res1,res2);
+                  
+        } 
+
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+           int size = prices.size();
+           int finalsum = 0;            
+           //int min = (*max_element(prices.begin(),prices.end()));
+
+           vector<vector<int>> helper(size+1,vector<int>(1000,0)); 
+           //min = -min;
+
+           int k = check(prices,size,0,0,helper,fee);
+           return k;   
+
+
+    }
+};
