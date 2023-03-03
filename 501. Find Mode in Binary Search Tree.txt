@@ -1,0 +1,45 @@
+#include <unordered_map>
+
+class Solution {
+        void check(TreeNode* root,unordered_map <int,int> &ourmap,vector<int> &v,int &bc){
+                  if(root == NULL){
+                     return; 
+                  }
+
+                  if(ourmap.count(root->val) > 0){
+                     ourmap[root->val]++;
+                     if(ourmap[root->val] > bc){
+                        bc =  ourmap[root->val];
+                     }
+                  }
+                  else{
+                     pair <int,int> p(root->val,1);
+                     ourmap.insert(p);
+                     v.push_back(root->val); 
+                  }
+
+                  check(root->left,ourmap,v,bc);
+                  check(root->right,ourmap,v,bc);
+                    
+        } 
+
+public:
+    vector<int> findMode(TreeNode* root) {
+                    unordered_map <int,int> ourmap;  
+                    vector<int> v;
+                    vector<int> result;
+                    int bc = 1;
+                    
+                    check(root,ourmap,v,bc);
+                    int size = v.size();
+                    for(int i=0; i<size; i++){
+                        if(ourmap[v[i]] == bc){
+                           result.push_back(v[i]); 
+                        }
+                    }
+
+                    return result;
+
+     }
+};
+
