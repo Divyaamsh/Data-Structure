@@ -1,0 +1,53 @@
+#include <algorithm> 
+
+class Solution {
+        int check(vector<vector<int>>& pairs,int i,int &size,int leftval,vector<vector<int>> &helperP,vector<vector<int>> &helperN){
+                 if(i == size){
+                    return 0;  
+                 }
+                 int g = abs(leftval);
+                 if(leftval < 0){
+                    if(helperN[i][g] != 0){
+                       return  helperN[i][g];
+                    }
+                 }
+                 else{
+                    if(helperP[i][g] != 0){
+                       return  helperP[i][g];
+                    }
+                 }
+                 
+                 int res1 = check(pairs,i+1,size,leftval,helperP,helperN);
+                 int res2 = 0;
+                 if(pairs[i][0] > leftval){
+                    res2 = 1 + check(pairs,i+1,size,pairs[i][1],helperP,helperN);
+
+                 }
+                 int res = max(res1,res2); 
+                 if(leftval < 0){
+                    helperN[i][g] = res;
+                 }
+                 else{
+                    helperP[i][g] = res;
+                 }
+
+
+                 return res; 
+        }  
+
+public:
+    int findLongestChain(vector<vector<int>>& pairs) {
+                   int size = pairs.size();
+                   sort(pairs.begin(),pairs.end());
+                   int d = pairs[size-1][1];
+                   int f = abs(pairs[0][0]);
+                   vector<vector<int>> helperP(size+1,vector<int>(1002,0));
+                   vector<vector<int>> helperN(size+1,vector<int>(1002,0)); 
+
+                   int res = check(pairs,0,size,-1001,helperP,helperN);             
+                   return res;
+                    
+    }
+};
+
+
