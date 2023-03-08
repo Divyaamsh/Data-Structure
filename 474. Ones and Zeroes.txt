@@ -1,0 +1,51 @@
+class Solution {
+        int check(vector<string>& strs,int i,int size,int m,int n,vector<vector<vector<int>>> &helper){
+                 if(m < 0 || n < 0){
+                    return -1; 
+                 }
+                 if((m == 0 && n == 0) || i == size){
+                    return 0; 
+                 }
+                 if((m == 0 && n == 0) && i == size){
+                    return -1; 
+                 }
+
+                 vector <int> &v = helper[m][n];
+                 if(v[i] != 0){
+                    return v[i]; 
+                 }
+                 int om = m;
+                 int on = n;
+
+                 int res1 = check(strs,i+1,size,m,n,helper);
+                 string str = strs[i];
+                 int len = str.size()-1;
+                 while(len > -1){
+                      if(str[len] == '1'){
+                         n--;    
+                      }
+                      if(str[len] == '0'){
+                         m--; 
+                      }
+                      len--;
+                 } 
+                 int res2 = 1 + check(strs,i+1,size,m,n,helper);
+                 vector <int> &q = helper[om][on];
+                 q[i] = max(res1,res2); 
+
+                 return max(res1,res2);
+
+        }  
+
+public:
+    int findMaxForm(vector<string>& strs, int m, int n) {
+               int size = strs.size();
+               vector<vector<vector<int>>> helper(m+1,vector<vector<int>>(n+1,vector<int>(size+1,0)));
+               int res = check(strs,0,size,m,n,helper);
+                  
+               return res;
+
+    }
+};
+
+
