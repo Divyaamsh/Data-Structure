@@ -1,0 +1,55 @@
+#include <algorithm>
+
+class Solution {
+        int check(int i,int a,int b,int x,vector<int>& forbidden,bool flag,vector <bool> visited,int q,vector<vector<int>> &helper){
+                 //cout << i << " ";
+                 if(i < 0 || i > q){
+                    return 9999; 
+                 }
+                 if(i == x){
+                    return 0; 
+                 }
+                 if(visited[i] || binary_search(forbidden.begin(),forbidden.end(),i)){
+                    return 9999; 
+                 } 
+                 visited[i] = true;
+                 if(helper[i][flag] != 0){
+                    return helper[i][flag]; 
+                 }  
+
+                 int res1 = 1 + check(i+a,a,b,x,forbidden,true,visited,q,helper);
+                 int res2 = 9999;
+                 if(flag){ 
+                    res2 = 1 + check(i-b,a,b,x,forbidden,false,visited,q,helper);  
+                 } 
+
+                 helper[i][flag] = min(res1,res2); 
+                 return min(res1,res2);
+
+        }
+
+
+public:
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+               int size = forbidden.size();
+               int maxe = *max_element(forbidden.begin(),forbidden.end())+a;
+               if(maxe < 100){
+                  maxe = maxe *10; 
+               }
+               else{
+               maxe = maxe*4; }          
+               vector<bool> visited(maxe,false);
+               vector<vector<int>> helper(maxe+1,vector<int>(2,0));
+               sort(forbidden.begin(),forbidden.end());
+
+               int res = -1;
+               res = check(0,a,b,x,forbidden,true,visited,maxe,helper);
+               if(res >= 9999){
+                  return -1; 
+               }
+               return res; 
+
+    }
+};
+
+
