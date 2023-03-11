@@ -1,0 +1,42 @@
+class Solution {
+        TreeNode* check(vector<int> &helper,int start,int end){
+                       if(start>end){
+                          return NULL;
+                       }
+                       int mid = (start+end)/2;
+                       cout << mid  << " " << start << " " << end<< " " << endl; 
+                       if(start == end){
+                          TreeNode* newRoot = new TreeNode(helper[start]);
+                          return newRoot;
+                       }
+
+                       TreeNode* res1 = check(helper,start,mid-1);
+                       TreeNode* res2 = check(helper,mid+1,end);
+
+                       TreeNode* res = new TreeNode(helper[mid]);
+                       res->left = res1;
+                       res->right = res2;
+                       
+                       return res;
+
+        }       
+
+
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+                    vector <int> helper;
+                    if(!head){
+                        return NULL;
+                    }
+                    while(head){
+                          helper.push_back(head->val);
+                          head = head -> next;                          
+                    } 
+
+                    int size = helper.size();
+                    TreeNode* root = check(helper,0,size-1); 
+
+                    return root;  
+
+    }
+};
