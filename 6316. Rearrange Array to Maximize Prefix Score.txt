@@ -1,0 +1,23 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int maxScore(vector<int>& nums) {
+           int res = 0; 
+           int size = nums.size();
+           sort(nums.begin(),nums.end());   
+        
+           long long  *arr =   new long long[size];
+           long long j = 0;
+        
+           for(int i=size-1; i>-1; i--){
+               arr[i] = j+nums[i];
+               if(arr[i] > 0){
+                  res++; 
+               }
+               j = arr[i];
+           }
+         
+           return res;
+    }
+};
