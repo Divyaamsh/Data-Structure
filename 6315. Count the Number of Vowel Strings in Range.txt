@@ -1,0 +1,29 @@
+class Solution {
+        bool check(char h){
+                  if(h == 'a' || h == 'e' || h == 'i' || h == 'o' || h == 'u'){
+                     return true; 
+                  }
+                  return false;    
+            
+        }
+    
+public:
+    int vowelStrings(vector<string>& words, int left, int right) {
+             int size = words.size();
+             int count = 0;
+        
+             for(int i=0; i<size; i++){
+                 if(i >= left && i<= right){
+                    string k = words[i];
+                    int a = k.size();
+                    if(check(k[0]) && check(k[a-1])){
+                       count++; 
+                    } 
+                 }
+             }
+        
+             return count;
+        
+    }
+};
+
