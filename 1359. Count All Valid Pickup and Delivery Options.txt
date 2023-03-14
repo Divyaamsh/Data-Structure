@@ -1,0 +1,19 @@
+class Solution {
+        long long check(int n){
+                       if(n == 1){
+                          return 1; 
+                       }
+                       long long g = 2 * n-1;
+                        
+                       return ((g * n * check(n-1)) % 1000000007);
+        } 
+
+public:
+    int countOrders(int n) {
+             long long res = check(n);
+             int q = res % 1000000007;
+
+             return q;  
+
+    }
+};
