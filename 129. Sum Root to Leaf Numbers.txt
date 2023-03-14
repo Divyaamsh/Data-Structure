@@ -1,0 +1,34 @@
+class Solution {
+        void check(TreeNode* root,int helper,int &finalsum){
+                  if(root == NULL){
+                     return;
+                  } 
+                  if(root->left == NULL && root -> right == NULL){
+                     helper = helper * 10 + root->val;
+                     cout << helper << " "; 
+                     finalsum = finalsum + helper;
+                     return;
+                  }
+
+                  helper = helper * 10 + root->val;
+                  check(root->left,helper,finalsum);
+                  check(root->right,helper,finalsum);
+                     
+        }
+
+public:
+    int sumNumbers(TreeNode* root) {
+           int finalsum = 0;
+           int helper = root->val;
+           if(root->left == NULL && root->right == NULL){
+              return helper; 
+           }
+
+           check(root->left,helper,finalsum);
+           check(root->right,helper,finalsum);
+
+           return finalsum;
+
+    }
+};
+
