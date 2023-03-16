@@ -1,0 +1,63 @@
+#include <unordered_map>
+
+class Solution {
+        void check(TreeNode* root,int i,unordered_map <int,vector<int>> &ourmap){
+                  if(root == NULL){
+                     if(ourmap.count(i) > 0){
+                        vector<int> &v = ourmap[i];
+                        v.push_back(-1); 
+                     }
+                     else{
+                        vector<int> b;
+                        b.push_back(-1);
+                        pair <int,vector<int>> p(i,b);
+                        ourmap.insert(p);  
+                     }
+                     return; 
+                  }      
+
+                  if(ourmap.count(i) > 0){
+                     vector<int> &v = ourmap[i];
+                     v.push_back(root->val); 
+                  }
+                  else{
+                     vector<int> b;
+                     b.push_back(root->val);
+                     pair <int,vector<int>> p(i,b);
+                     ourmap.insert(p);  
+                  }
+                    
+                  check(root->left,i+1,ourmap); 
+                  check(root->right,i+1,ourmap);    
+
+        }   
+
+public:
+    bool isCompleteTree(TreeNode* root) {
+           unordered_map <int,vector<int>> ourmap;
+           //vector<int> v;        
+           int i = 0;
+           bool fres = true;
+           bool k = false;   
+
+           check(root,0,ourmap);   
+           while(ourmap.count(i) > 0){
+                 vector<int> &v = ourmap[i];
+                 int size = v.size();
+                 int j = 0;
+                 for(int j=0; j<size; j++){
+                     if(v[j] == -1){
+                        k = true;
+                     }
+                     if(v[j] != -1 && k){
+                        fres = false; 
+                     }
+                 }
+ 
+                 i++; 
+           }  
+
+           return fres;
+
+    } 
+};
