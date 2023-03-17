@@ -1,0 +1,70 @@
+#include <unordered_map>
+#include <vector> 
+#include <algorithm>
+
+class Solution {
+        int check(int val,unordered_map <int,int> &helper){
+                 if(val == 1){
+                    return 0; 
+                 }
+                 if(helper.count(val) > 0){
+                    return helper[val]; 
+                 }  
+
+                 int res = 0; 
+                 if(val % 2 == 0){
+                    int q = val/2; 
+                    res = 1 + check(q,helper);
+                 }
+                 else{
+                    int q = val * 3 + 1;
+                    res = 1 + check(q,helper);
+                 }
+
+                 pair <int,int> p(val,res);
+                 helper.insert(p);  
+                 return res;
+
+        }
+
+public:
+    int getKth(int lo, int hi, int k) {
+              unordered_map <int,vector<int>> ourmap; 
+              unordered_map <int,int> helper;
+              vector<int> v;  
+
+              for(int i=lo; i<=hi; i++){
+                  int res = check(i,helper);
+                  if(ourmap.count(res) > 0){
+                     vector<int> &ll = ourmap[res];
+                     ll.push_back(i);  
+                  } 
+                  else{
+                      vector<int> j;
+                      v.push_back(res);
+                      j.push_back(i);
+                      pair <int,vector<int>> p(res,j);
+                      ourmap.insert(p);
+                  }  
+              }  
+              sort(v.begin(),v.end());  
+              int size = v.size();
+              int ans = 0; 
+              cout << size << endl;  
+
+              for(int i=0; i<size; i++){
+                  vector<int> z = ourmap[v[i]];
+                  int si = z.size();
+                  for(int j = 0; j<si; j++){
+                      k--;
+                      if(k == 0){
+                         return z[j]; 
+                      }
+                  }
+              }
+
+              return -1; 
+               
+    }
+};
+
