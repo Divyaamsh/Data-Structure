@@ -1,0 +1,85 @@
+#include <stack>
+
+class Solution {
+        bool check(string str,int i,int size,stack <char> s,vector <vector<int>> &helper){
+                  int len = s.size(); 
+                  if(i == size){
+                     if(s.size() != 0){
+                        return false; 
+                     }
+                     return true; 
+                  }
+                  if(helper[i][len] != 0){
+                     int j = helper[i][len];
+                     if(j == -1){
+                        return false; 
+                     }
+                     return true; 
+                  }
+
+                  char ch = str[i];
+                  bool res1 = false;
+                  bool res2 = false;
+                  bool res3 = false; 
+
+                  if(ch == '('){
+                     s.push(ch);
+                     res1 = check(str,i+1,size,s,helper); 
+                  }
+                  if(ch == ')'){
+                    if(s.size() != 0){
+                        if(s.top() == '('){
+                           s.pop();
+                           res1 = check(str,i+1,size,s,helper); 
+                        } 
+                    }
+                    else{
+                       s.push(ch);
+                       res1 = check(str,i+1,size,s,helper);
+                    }   
+                  }
+
+
+                  if(ch == '*'){
+                     stack <char> h = s; 
+                     ch = '(';
+                     s.push(ch);
+                     res1 = check(str,i+1,size,s,helper);
+                     s.pop();
+                     ch = ')';
+                     if(s.size() != 0){
+                        if(s.top() == '('){
+                           s.pop();
+                           res2 = check(str,i+1,size,s,helper); 
+                        } 
+                     }
+                     else{
+                       s.push(ch);
+                       res2 = check(str,i+1,size,s,helper);
+                     } 
+                     res3 = check(str,i+1,size,h,helper); 
+                  }
+
+                  if(res1 || res2 || res3){
+                     helper[i][len] = 1; 
+                  }
+                  else{
+                     helper[i][len] = -1; 
+                  }
+
+                  return (res1 || res2 || res3);
+        } 
+
+
+public:
+    bool checkValidString(string str) {
+                   int size = str.size();
+                   stack <char> s;
+                   vector <vector<int>> helper(size+1,vector<int>(size+1,0)); 
+                   bool res = check(str,0,size,s,helper);
+
+                   return res;
+                   
+    }
+};
+
