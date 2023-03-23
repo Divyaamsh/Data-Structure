@@ -1,0 +1,43 @@
+class Solution {
+        int check(vector<int>& prices,int i,int size,int val,vector<vector<int>> &helper){
+                 if(i >= size){
+                    if(val == 0){
+                       return -9999;  
+                    }   
+                    return 0; 
+                 }
+
+                 if(helper[i][val] != -1){
+                    return helper[i][val]; 
+                 }
+
+                 int res1 = check(prices,i+1,size,val,helper);
+                 int res2 = 0;
+
+                 if(val){
+                    res2 = check(prices,i+1,size,0,helper) - prices[i]; 
+                 }
+                 else{
+                    res2 = check(prices,i+2,size,1,helper) + prices[i]; 
+                 }
+                 int res = max(res1,res2);
+                 helper[i][val] = res;
+                 
+                 return res;
+        } 
+
+public:
+    int maxProfit(vector<int>& prices) {
+           int size = prices.size();
+           vector<vector<int>> helper(size,vector<int>(2,0));
+           for(int i=0; i<size; i++){
+               helper[i][0] = -1;
+               helper[i][1] = -1;
+           }
+
+           int res = check(prices,0,size,1,helper);
+           return res;   
+
+    }
+};
+
