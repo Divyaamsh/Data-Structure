@@ -1,0 +1,34 @@
+#include <unordered_map>
+
+class Solution {
+        void check(TreeNode* root,int i,vector<vector<int>> &res, unordered_map <int,int> &ourmap){
+                  if(root == NULL){
+                     return; 
+                  } 
+                  
+                  if(ourmap.count(i) > 0){
+                     vector<int> &v = res[i];
+                     v.push_back(root->val);
+                  }
+                  else{
+                     pair <int,int> p(i,1);
+                     ourmap.insert(p);
+                     vector<int> v;
+                     v.push_back(root->val);
+                     res.push_back(v);
+                  } 
+                  
+                  check(root->left,i+1,res,ourmap);
+                  check(root->right,i+1,res,ourmap);
+        }
+
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+                             vector<vector<int>> res;
+                             unordered_map <int,int> ourmap;
+                             check(root,0,res,ourmap);
+                             
+                             return res;
+    }
+};
+

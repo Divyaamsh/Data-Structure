@@ -1,0 +1,25 @@
+class Solution {
+        int check(ListNode* head, int n){
+                 if(head == NULL){
+                    return 0; 
+                 }
+
+                 int res = 1 + check(head->next,n);
+                 if(res == n+1){
+                    head->next = (head->next)->next;
+                 }
+
+                 return res;
+        }   
+
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+                    int res = check(head,n);
+                    if(res == n){
+                       return head->next;
+                    }
+
+                    return head;  
+                    
+    }
+};

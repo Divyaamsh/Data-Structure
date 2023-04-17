@@ -1,0 +1,28 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    int partitionString(string s) {
+                 int size = s.size();  
+                 unordered_map <char,int> ourmap;
+                 int count = 0;
+                
+                 for(int i=0; i<size; i++){
+                     if(ourmap.count(s[i]) >0){
+                        ourmap.clear(); 
+                        i--;
+                        count++;
+                        continue; 
+                     }
+                     
+                     pair <char,int> p(s[i],1);
+                     ourmap.insert(p); 
+                 }
+                 if(ourmap.size() > 0){
+                    count++; 
+                 }
+
+                 return count; 
+                    
+    }
+};

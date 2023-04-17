@@ -1,0 +1,38 @@
+class Solution {
+        int isPrime(int n){
+              if(n < 2){return -1;}
+              int h = sqrt(n);
+              for(int i=2; i<=h; i++){
+                  if(n % i == 0){
+                     return -1; 
+                  }
+              }
+              return n;
+            
+        }  
+    
+public:
+    int diagonalPrime(vector<vector<int>>& nums) {
+                int size = nums.size();
+                int res = 0;
+                    
+                for(int i=0; i<size; i++){
+                    int val1 = isPrime(nums[i][i]);
+                    int val2 = isPrime(nums[i][size-i-1]);
+                    
+                    if(val1 != -1){
+                       if(val1 > res){
+                          res = val1; 
+                       } 
+                    }
+                    if(val2 != -1){
+                      if(val2 > res){
+                         res = val2; 
+                      }  
+                    }
+                }    
+                 
+                return res; 
+        
+    }
+};

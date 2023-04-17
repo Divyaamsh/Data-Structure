@@ -1,0 +1,47 @@
+class Solution {
+        ListNode* check(ListNode* l1, ListNode* l2,int count){
+                       if(l1 == NULL && l2 == NULL){
+                          if(count != 0){
+                             ListNode* temp = new ListNode(count);
+                             return temp;
+                          } 
+                          return NULL; 
+                       }
+                       
+                       int sum = count;
+                       if(l1 != NULL){
+                          sum = sum + l1->val; 
+                       }
+                       if(l2 != NULL){
+                          sum = sum + l2->val; 
+                       }
+
+                       int val = sum % 10;
+                       sum = (sum - val)/10;
+                    
+                       ListNode* temp = new ListNode(val); 
+                       ListNode* helper = NULL;
+                       if(l1 != NULL && l2 != NULL){
+                          helper = check(l1->next,l2->next,sum);
+                       } 
+                       else if(l1 == NULL && l2 != NULL){
+                          helper = check(l1,l2->next,sum);
+                       }
+                       else if(l1 != NULL && l2 == NULL){
+                          helper = check(l1->next,l2,sum);   
+                       }
+               
+                       temp -> next = helper;
+                       return temp;
+
+        }
+
+
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+                    int count = 0;
+                    ListNode* head = check(l1,l2,count);        
+
+                    return head; 
+    }
+};

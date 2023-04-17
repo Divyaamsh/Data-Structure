@@ -1,0 +1,39 @@
+#include <algorithm>
+
+class Solution {
+public:
+    int findMinArrowShots(vector<vector<int>>& points) {
+                    int sizeC = points.size();
+                    int ans = sizeC;    
+                    vector<pair<int,int>> v; 
+                    sort(points.begin(),points.end());
+
+                    for(int i=0; i<sizeC; i++){
+                        int start = points[i][0];
+                        int end = points[i][1];
+                        int size = v.size();
+                        bool flag = true;
+
+                        for(int j=0; j<size; j++){
+                            pair <int,int> &p = v[j];
+                            if(start <= p.second && start >= p.first){
+                               int minS = min(start,p.first);
+                               int minE = min(end,p.second);
+                               ans--;
+                               flag = false;
+                               p.first = minS; 
+                               p.second = minE;
+                            }
+                        }
+                        
+                        if(flag){
+                           pair<int,int> p(start,end);
+                           v.push_back(p); 
+                        }
+                          
+                    }
+                    
+                    return ans;
+    }
+};
+

@@ -1,0 +1,27 @@
+class Solution {   
+        void check(ListNode* first,ListNode* second,ListNode* head){
+                      if(first->next != NULL && first->next->next == NULL && second->next == NULL){
+                         first->next = head;
+                         return;
+                      }         
+                      if(second == NULL){
+                         first->next = head;
+                         return;
+                      }  
+
+                      first->next = (first->next)->next;
+                      second->next = (second->next)->next;
+                      check(first->next,second->next,head);                       
+
+        } 
+
+public:
+    ListNode* oddEvenList(ListNode* head) {
+                 if(head == NULL){
+                    return NULL;
+                 }
+
+                 check(head,head->next,head->next); 
+                 return head;                  
+    }
+};

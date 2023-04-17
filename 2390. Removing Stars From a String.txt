@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string removeStars(string s) {
+                 int size = s.size();
+                 int count = 0;
+                 int j = size-1;
+
+                 for(int i=size-1; i>-1; i--){
+                     if(s[i] == '*'){
+                        count++;
+                        continue; 
+                     }
+                     if(count > 0){
+                        count--;
+                        continue; 
+                     }
+                     s[j] = s[i];
+                     j--;
+                 }
+                 s = s.substr(j+1,(size-j));
+                  
+                 return s;
+                  
+    }
+};
+
+
+
+// HELLO

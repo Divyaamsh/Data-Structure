@@ -1,0 +1,37 @@
+class Solution {
+        void check(vector<vector<char>>& grid,int i,int j,int sizeC,int sizeR,vector<vector<int>> &visited){
+                  if(i < 0 || j < 0 || i > sizeC-1 || j > sizeR-1){
+                     return ;
+                  }
+                  if(visited[i][j] == 1 || grid[i][j] == '0'){
+                     return; 
+                  }
+                  visited[i][j] = 1;
+
+                  check(grid,i+1,j,sizeC,sizeR,visited);
+                  check(grid,i,j+1,sizeC,sizeR,visited);
+                  check(grid,i-1,j,sizeC,sizeR,visited);
+                  check(grid,i,j-1,sizeC,sizeR,visited);
+                   
+        }
+
+public:
+    int numIslands(vector<vector<char>>& grid) {
+           int sizeC = grid.size();
+           int sizeR = grid[0].size();
+           int count = 0;
+           vector<vector<int>> visited(sizeC,vector<int>(sizeR,0));
+
+           for(int i=0; i<sizeC; i++){
+              for(int j=0; j<sizeR; j++){
+                  if(grid[i][j] == '1' && visited[i][j] == 0){
+                     count++;
+                     check(grid,i,j,sizeC,sizeR,visited);
+                  } 
+               }
+           } 
+
+           return count;  
+    }
+};
+

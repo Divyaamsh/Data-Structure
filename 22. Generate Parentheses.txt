@@ -1,0 +1,28 @@
+class Solution {
+        void check(int n,string s,vector<string> &result,int i,int j){
+                  if(i == n && j == n){
+                     result.push_back(s); 
+                     return; 
+                  } 
+                  
+                  if(i < n){
+                     string q = s + '(';
+                     check(n,q,result,i+1,j); 
+                  }
+                  if(i > j){
+                     string q = s + ')';
+                     check(n,q,result,i,j+1); 
+                  } 
+                   
+        } 
+
+public:
+    vector<string> generateParenthesis(int n) {
+                           vector<string> result;        
+                           string s = "";    
+
+                           check(n,s,result,0,0);
+                           return result;
+                            
+    }
+};

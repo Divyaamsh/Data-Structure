@@ -1,0 +1,62 @@
+#include <unordered_map>
+#include <algorithm>
+
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+                   vector <int> result;
+                   unordered_map <int,vector<pair<int,int>>> ourmap;
+                   //unordered_map <int,int> helper;   
+
+                   int size = queries.size(); 
+
+                   for(int i=0; i<size; i++){
+                       int res = 0;
+                       int start = queries[i][0];
+                       int end = queries[i][1];
+                       int st = start;
+                       bool f = false;
+
+                       if(ourmap.count(start) > 0){
+                          vector<pair<int,int>> v = ourmap[start];
+                          int si = v.size();
+                          for(int j = si-1; j>-1; j--){
+                              pair <int,int> p = v[j];
+                              if(p.first == end){
+                                 result.push_back(p.second);
+                                 f = true; 
+                                 break; 
+                              }
+                              if(p.first < end){
+                                 st = p.first+1;
+                                 res = p.second;
+                                 break;
+                              }  
+                          } 
+                       }
+                       if(f){continue;}
+                                           
+                       for(int j=st; j<=end; j++){
+                           res = res ^ arr[j];
+                       }  
+                       if(ourmap.count(start) > 0){
+                          vector<pair<int,int>> &v = ourmap[start];
+                          pair<int,int> p(end,res);
+                          v.push_back(p);
+                          sort(v.begin(),v.end());                          
+                       }
+                       else{
+                          pair<int,int> p(end,res); 
+                          vector <pair<int,int>> v;
+                          v.push_back(p); 
+                          pair<int,vector<pair<int,int>>> p1(start,v);
+                          ourmap.insert(p1);
+                       }  
+                       result.push_back(res); 
+                   }                      
+
+                   return result;
+
+    }
+};
+

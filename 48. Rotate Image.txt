@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+               int n = matrix.size();
+             
+               for(int i=0; i<n; i++){
+                   vector<int> &v = matrix[i];
+                   reverse(v.begin(),v.end());
+               }
+               
+               for(int i=0; i<n-1; i++){
+                   for(int j = 0; j<n-1-i; j++){
+                       int val = matrix[i][j];
+                       int x = n - 1 - j;
+                       int y = n - 1 - i;
+                       matrix[i][j] = matrix[x][y];
+                       matrix[x][y] = val;
+                   }
+               }
+
+    }
+};

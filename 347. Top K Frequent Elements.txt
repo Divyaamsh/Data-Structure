@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+                    int size = nums.size();
+                    vector<int> result;
+                    sort(nums.begin(),nums.end());
+                    int count = 1;
+                    vector<int> unique;
+                    unordered_map <int,vector<int>> ourmap;
+                    
+                    for(int i=0; i<size; i++){
+                        if(i != size-1 && nums[i] == nums[i+1]){
+                           count++;
+                           continue;
+                        } 
+                        if(ourmap.count(count) > 0){
+                           vector<int> &v = ourmap[count];
+                           v.push_back(nums[i]);
+                           count = 1;
+                           continue; 
+                        }
+                        vector<int> v;
+                        cout << count << " ";
+                        v.push_back(nums[i]);
+                        pair<int,vector<int>> p(count,v);
+                        ourmap.insert(p);
+                        unique.push_back(count); 
+                        count = 1;
+                    }  
+                        
+                    sort(unique.begin(),unique.end());
+                    int i = unique.size()-1;
+
+                    while(k > 0){
+                         vector<int> v = ourmap[unique[i]];
+                         int len = v.size();
+                         for(int j=0; j<len; j++){
+                             k--;
+                             result.push_back(v[j]);
+                         }
+                         i--; 
+                    }                                        
+                    
+                    return  result;
+    }
+};

@@ -1,0 +1,41 @@
+ #include <stack>
+
+class Solution {
+public:
+    int balancedStringSplit(string s) {
+                int size = s.size();        
+                stack <char> st;
+                st.push(s[0]);
+                int i = 1; 
+                int count = 0;
+
+                while(i < size){
+                      char ch = s[i];
+                      if(st.size() == 0){
+                         count++; 
+                         st.push(ch);
+                         i++;
+                         continue; 
+                      }
+                      char ch1 = st.top();
+
+                      if(ch != ch1){
+                         st.pop();
+                         i++;
+                         continue;
+                      }
+                      else{
+                         st.push(ch);
+                         i++;
+                      }   
+                }
+
+                if(st.size() == 0){
+                   count++; 
+                }  
+
+                return count;
+
+    }
+};
+
