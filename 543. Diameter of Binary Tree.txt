@@ -1,0 +1,27 @@
+class Solution {
+        int check(TreeNode* root,int &res){
+                 if(root == NULL){
+                    return -1; 
+                 } 
+
+                 int res1 = 1 + check(root->left,res);
+                 int res2 = 1 + check(root->right,res);
+                 int h = res1 + res2;
+                 res = max(h,res); 
+
+                 return max(res1,res2);
+
+        }
+
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+                  int res = 0;
+                  int count = check(root,res);
+                  res = max(res,count);  
+                    
+                  return res;  
+                  
+    }
+};
+
+
