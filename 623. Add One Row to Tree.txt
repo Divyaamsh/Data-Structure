@@ -1,0 +1,33 @@
+class Solution {
+        void check(TreeNode* root, int val, int depth){
+                  if(!root){
+                     return; 
+                  }    
+                  if(depth == 2){
+                     TreeNode *newRoot1 = new TreeNode(val);
+                     TreeNode *newRoot2 = new TreeNode(val);
+                     newRoot1 -> left = root->left;
+                     newRoot2 -> right = root ->right;   
+                     root-> left = newRoot1;
+                     root-> right = newRoot2;
+                     return; 
+                  } 
+
+                  check(root->left,val,depth-1);
+                  check(root->right,val,depth-1);
+        }   
+
+public:
+    TreeNode* addOneRow(TreeNode* root, int val, int depth) {
+                    if(depth == 1){
+                       TreeNode *newRoot = new TreeNode(val);
+                       newRoot -> left = root;
+                       return newRoot;  
+                    } 
+
+                    check(root,val,depth); 
+                    return root;
+                       
+    }
+};
+
