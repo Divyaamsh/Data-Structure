@@ -1,0 +1,32 @@
+class Solution {
+        pair<int,int> check(TreeNode* root,int &count){
+                           if(root == NULL){
+                              pair<int,int> p(0,0);
+                              return p; 
+                           }
+
+                           pair <int,int> p1 = check(root->left,count);
+                           pair <int,int> p2 = check(root->right,count);
+
+                           int sum = p1.first + p2.first + root->val;
+                           int num = p1.second+p2.second+1;
+                           pair <int,int> p(sum,num);  
+
+                           int q = sum/num;
+                           if(q == root->val){
+                              count++; 
+                           }
+                           
+                           return p;
+        } 
+        
+public:
+    int averageOfSubtree(TreeNode* root) {
+                 int count = 0;
+                 pair<int,int> p = check(root,count);
+                   
+                 return count;  
+    }
+};
+
+
