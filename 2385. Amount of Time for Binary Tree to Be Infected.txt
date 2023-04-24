@@ -1,0 +1,64 @@
+class Solution {
+        int check1(TreeNode* root){
+                  if(root == NULL){
+                     return -1; 
+                  }
+
+                  int res1 = 1 + check1(root->left);
+                  int res2 = 1 + check1(root->right);
+
+                  return max(res1,res2);
+        }
+
+        pair<int,bool> check(TreeNode* root, int start,int &ans){
+                            if(root == NULL){
+                               pair <int,bool> p(0,false); 
+                               return p; 
+                            }
+                            if(root->val == start){
+                               pair<int,bool> p(0,true);
+                               int h = check1(root);
+                               ans = max(ans,h);
+                               return p; 
+                            }
+
+                            pair <int,bool> p1 = check(root->left,start,ans);
+                            pair <int,bool> p2 = check(root->right,start,ans);
+
+                            bool q = p1.second;
+                            bool w = p2.second;
+                            int a = p1.first;
+                            int s = p2.first;
+                             
+                            if(q == false && w == false){
+                               int h = 1 + max(a,s);
+                               pair<int,bool> p(h,false);
+                               return p; 
+                            }
+                            if(q == false && w == true){
+                               int z = 1 + a + s;
+                               ans = max(ans,z);
+                               pair<int,bool> p(s+1,true);
+                               return p;
+                            }
+                            if(w == false && q == true){
+                               int z = 1 + a + s;
+                               ans = max(ans,z);
+                               pair<int,bool> p(a+1,true);
+                               return p;
+                            } 
+                            pair<int,bool> l(1,false);
+                            return l;
+                            
+        }
+
+public:
+    int amountOfTime(TreeNode* root, int start) {
+                int count = 0;
+                pair<int,bool> p = check(root,start,count); 
+                                 
+                return count;
+                  
+    }
+};
+
