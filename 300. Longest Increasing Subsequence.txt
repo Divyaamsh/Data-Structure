@@ -1,0 +1,43 @@
+class Solution {
+        int check(vector<int>& nums,int i,int &size,int val){
+                  if(i == size){
+                     return 0; 
+                  } 
+
+                  int res1 = check(nums,i+1,size,val);
+                  int res2 = 0;
+                  if(val < nums[i]){
+                     res2 = 1 + check(nums,i+1,size,nums[i]);   
+                  }
+                  return max(res1,res2);  
+
+        }
+
+public:
+    int lengthOfLIS(vector<int>& nums) {
+              int size = nums.size();
+              vector<int> memo(size,0);
+              int res = 1;
+              memo[0] = 1;
+
+              for(int i=1;i<size; i++){
+                 for(int j=i-1; j>-1; j--){
+                     if(nums[i] <= nums[j]){
+                        continue;
+                     } 
+                     int ans = memo[j];
+                     if(ans > memo[i]){
+                        memo[i] = ans;
+                     } 
+                 }           
+                 memo[i]++;
+              }
+
+              sort(memo.begin(),memo.end());
+              //int res = check(nums,0,size,-10001);
+              return memo[size-1];
+
+    }
+};
+
+
