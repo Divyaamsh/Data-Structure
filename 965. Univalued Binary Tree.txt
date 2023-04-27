@@ -1,0 +1,17 @@
+class Solution {
+        bool check(TreeNode* root,int &val){
+                  if(!root){return true;}
+
+                  return (root->val == val && check(root->left,val) && check(root->right,val));
+        } 
+
+public:
+    bool isUnivalTree(TreeNode* root) {
+                 int val = root->val;
+                 bool res = check(root,val);
+                 
+                 return res; 
+    }
+};
+
+

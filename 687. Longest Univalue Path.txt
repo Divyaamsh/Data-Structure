@@ -1,0 +1,58 @@
+class Solution {
+        pair<int,int> check(TreeNode* root,int &count){
+                           if(root == NULL){
+                              pair<int,int> p(1001,1);
+                              return p; 
+                           }                     
+                                
+                           pair<int,int> p1 = check(root->left,count);
+                           pair<int,int> p2 = check(root->right,count);
+
+                           int val1 = p1.first;
+                           int val2 = p2.first;
+                           int num1 = p1.second;
+                           int num2 = p2.second;
+
+                           if(val1 == val2 && val2 == root->val){
+                              int h = max(num1,num2) + 1;
+                              int j = num1+num2+1;
+                              count = max(count,j);
+                              pair<int,int> p(val1,h);
+                              return p; 
+                           }
+                           if(val1 == root->val && val2 != root->val){
+                              num1 = num1 + 1;
+                              count = max(count,num2);
+                              pair<int,int> p(val1,num1);
+                              return p;
+                           }                           
+                           if(val2 == root->val && val1 != root->val){
+                              num2 = num2 + 1;
+                              count = max(count,num1);
+                              pair<int,int> p(val2,num2);
+                              return p;
+                           }   
+                           if(val1 != root->val && val2 != root->val){
+                              count = max(count,num1);
+                              count = max(count,num2);
+                              
+                              pair<int,int> p(root->val,1);
+                              return p;
+                           }
+                             
+                           return p1;
+        }
+         
+public:
+    int longestUnivaluePath(TreeNode* root) {
+               int count = 0;
+               pair<int,int> p = check(root,count);
+               count = max(count,p.second); 
+               if(count != 0){
+                  count--; 
+               }
+
+               return count;
+    }
+};
+

@@ -1,0 +1,44 @@
+class Solution {
+        char check(int value){
+                  int h = 'a';
+                  char ch = h + value;
+                  return ch;  
+        }
+
+        void smallestFrom(TreeNode* root,string s,string &fres) {
+                  if(root->left == NULL && root->right == NULL){
+                      char ch = check(root->val);
+                      s = ch + s;
+                      fres = min(s,fres);  
+                      return;
+                   }          
+ 
+                   char ch = check(root->val);
+                   s = ch + s;  
+                   if(root->left == NULL && root->right != NULL){
+                      smallestFrom(root->right,s,fres);
+                      return;
+                   }
+                   if(root->left != NULL && root->right == NULL){
+                      smallestFrom(root->left,s,fres); 
+                      return; 
+                   } 
+
+                   smallestFrom(root->right,s,fres);
+                   smallestFrom(root->left,s,fres);
+
+    }
+
+public:
+    string smallestFromLeaf(TreeNode* root) {
+                   char v = 123;  
+                   string fres = "";
+                   string s1 = "";
+                   fres = fres + v;    
+                   smallestFrom(root,s1,fres);
+                  
+                   return fres;
+
+    }
+};
+
