@@ -1,0 +1,39 @@
+class Solution {
+        void check(vector<vector<int>>& grid,int i,int j,int sizeC,int sizeR,int &ans,vector<vector<int>> &visited){
+                  if(i < 0 || j < 0 || i > sizeC-1 || j > sizeR-1){
+                     return;   
+                  }
+                  if(visited[i][j] == 1 || grid[i][j] == 0){
+                     return;          
+                  }
+            
+                  visited[i][j] = 1;
+                  ans = ans + grid[i][j];
+            
+                  check(grid,i+1,j,sizeC,sizeR,ans,visited);
+                  check(grid,i,j+1,sizeC,sizeR,ans,visited);
+                  check(grid,i-1,j,sizeC,sizeR,ans,visited);
+                  check(grid,i,j-1,sizeC,sizeR,ans,visited);
+            
+        }
+    
+public:
+    int findMaxFish(vector<vector<int>>& grid) {
+               int sizeC = grid.size();
+               int sizeR = grid[0].size();
+               int res = 0;
+        
+               for(int i=0; i<sizeC; i++){
+                   for(int j=0; j<sizeR; j++){
+                       vector<vector<int>> visited(sizeC,vector<int>(sizeR,0));
+                       if(grid[i][j] > 0){
+                          int ans = 0;
+                          check(grid,i,j,sizeC,sizeR,ans,visited);
+                          res = max(ans,res); 
+                       }
+                   }
+               } 
+         
+               return res;
+    }
+};
