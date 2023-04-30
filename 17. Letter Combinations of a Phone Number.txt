@@ -1,0 +1,43 @@
+class Solution {
+        void check(string &digits,int size,int i,vector<string> &helper,vector<string> &result,string s){
+                  if(i == size){
+                     result.push_back(s);
+                     return; 
+                  }
+
+                  int ch = (digits[i] - '0' - 2);
+                  string h = helper[ch];
+                  int l = h.size();
+                  for(int k=0; k<l; k++){
+                      string kk = s;
+                      kk = kk + h[k];
+                      check(digits,size,i+1,helper,result,kk);
+                  }
+
+        } 
+
+public:
+    vector<string> letterCombinations(string digits) {
+                         vector<string> helper;
+                         vector<string> result;
+                         int size = digits.size();
+                         if(size == 0){
+                            return helper; 
+                         }
+
+                         helper.push_back("abc");
+                         helper.push_back("def");
+                         helper.push_back("ghi");
+                         helper.push_back("jkl");
+                         helper.push_back("mno");
+                         helper.push_back("pqrs");
+                         helper.push_back("tuv");
+                         helper.push_back("wxyz");
+
+                         string g = "";
+                         check(digits,size,0,helper,result,g);
+
+                         return result;
+    }
+};
+
