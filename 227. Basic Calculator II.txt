@@ -1,0 +1,83 @@
+class Solution {
+public:
+    int calculate(string s) {
+                int size = s.size(); 
+                string help = "";
+                vector<string> st;    
+
+                for(int i=0; i<size; i++){
+                    if(s[i] == ' '){
+                       continue;
+                    }
+                    if(s[i] == '*' || s[i] == '/' || s[i] == '+' || s[i] == '-'){
+                       st.push_back(help); 
+                       help = "";
+                       help = help + s[i];
+                       st.push_back(help);
+                       help = "";
+                       continue;
+                    }           
+                    char ch = s[i];     
+                    help = help + ch;
+                }
+                st.push_back(help);
+
+                int len = st.size();
+                stack <string> st1;
+                for(int i=0; i<len; i++){
+                    string val = st[i];
+                    if(val == "+" || val == "-"){
+                       st1.push(val);
+                       continue; 
+                    }                    
+                    if(val == "*" || val == "/"){
+                       int back = stoi(st1.top());
+                       st1.pop();
+                       int front = stoi(st[i+1]);
+                       i++;
+                       if(val == "*"){
+                          int res = back*front;
+                          val = to_string(res); 
+                       }
+                       if(val == "/"){
+                          int res =  back/front;
+                          val = to_string(res);
+                       }
+                    }
+                    st1.push(val);
+                }
+                   
+                int res = 0;
+                bool flag = true;
+                stack<string> st2;
+                len = st1.size();
+                for(int i=0; i<len; i++){
+                    st2.push(st1.top());
+                    st1.pop();    
+                } 
+
+                for(int i=0; i<len; i++){
+                    string val = st2.top();
+                    st2.pop();
+                    if(val == "+"){
+                       flag = true;
+                       continue; 
+                    }
+                    if(val == "-"){
+                       flag = false;
+                       continue; 
+                    }
+   
+                    if(flag){
+                       res = res + stoi(val); 
+                    }
+                    else{
+                       res = res - stoi(val);
+                    }
+                }
+ 
+                return res;
+
+    }
+};
+
