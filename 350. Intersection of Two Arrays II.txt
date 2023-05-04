@@ -1,0 +1,45 @@
+#include <unordered_map>
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+                         int size1 = nums1.size();          
+                         int size2 = nums2.size();
+                         unordered_map<int,int> ourmap1; 
+                         unordered_map<int,int> ourmap2; 
+                         vector<int> res;   
+                         vector<int> v;
+
+                         for(int i=0; i<size1; i++){
+                             if(ourmap1.count(nums1[i]) > 0){
+                                ourmap1[nums1[i]]++; 
+                                continue; 
+                             }                            
+                             pair<int,int> p(nums1[i],1);
+                             ourmap1.insert(p);
+                             v.push_back(nums1[i]);   
+                         }
+                         for(int i=0; i<size2; i++){
+                             if(ourmap2.count(nums2[i]) > 0){
+                                ourmap2[nums2[i]]++; 
+                                continue; 
+                             }                            
+                             pair<int,int> p(nums2[i],1);
+                             ourmap2.insert(p);   
+                         }
+                         
+                         int size = v.size();
+                         for(int i=0; i<size; i++){
+                             if(ourmap1.count(v[i]) > 0 && ourmap2.count(v[i]) > 0){
+                                int val = min(ourmap1[v[i]],ourmap2[v[i]]);
+                                while(val--){
+                                     res.push_back(v[i]); 
+                                } 
+                             }
+                         } 
+
+
+                         return res;    
+    }
+};
+
