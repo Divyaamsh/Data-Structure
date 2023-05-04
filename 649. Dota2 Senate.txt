@@ -1,0 +1,59 @@
+class Solution {
+
+bool check(string senate,string &h,int &countR,int &countD){
+          int size = senate.size();          
+          bool res = false;
+          for(int i=0; i<size; i++){
+              char ch = senate[i];
+              if(ch == 'R'){
+                 if(countD > 0){
+                    countD--;
+                    res = true;
+                    continue; 
+                 }
+                         h = h + ch;
+                         countR++;
+                         continue;  
+                      } 
+                      if(ch == 'D'){
+                         if(countR > 0){
+                            countR--;
+                            res = true;
+                            continue; 
+                         }
+                         
+                         h = h + ch;
+                         countD++;
+                         continue;  
+                      }
+                  }   
+                  //reverse(h.begin(),h.end()); 
+
+                  return res; 
+}
+
+public:
+    string predictPartyVictory(string senate) {
+                  stack <char> st;
+                  int size = senate.size(); 
+                  //string h = "";  
+                  int countR = 0; 
+                  int countD = 0; 
+
+                  while(true){
+                      string h = "";
+                       cout << senate << endl;
+                       bool res = check(senate,h,countR,countD);
+                       if(!res){
+                          break; 
+                       }
+                       senate = h;
+                  }             
+
+                  if(senate[0] == 'R'){
+                     return "Radiant"; 
+                  }     
+                  return "Dire";    
+    }
+};
+
