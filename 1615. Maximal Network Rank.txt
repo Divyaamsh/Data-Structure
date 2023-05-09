@@ -1,0 +1,74 @@
+#include <unordered_map>
+
+class Solution {
+        void check(int &val1,int &val2,unordered_map <int,vector<int>> &ourmap){
+                  if(ourmap.count(val1) > 0){
+                     vector<int> &v = ourmap[val1];
+                     v.push_back(val2);
+                  }
+                  else{
+                     vector<int> v;
+                     v.push_back(val2);
+                     pair<int,vector<int>> p(val1,v);
+                     ourmap.insert(p);    
+                  }
+        }
+
+public:
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+               unordered_map <int,vector<int>> ourmap;
+               int size = roads.size();
+               vector<pair<int,int>> v; 
+
+               for(int i=0; i<size; i++){
+                   int val1 = roads[i][0];
+                   int val2 = roads[i][1];
+
+                   check(val1,val2,ourmap);
+                   check(val2,val1,ourmap); 
+               }
+
+               for(int i=0; i<n; i++){
+                   pair<int,int> p(ourmap[i].size(),i);
+                   v.push_back(p);
+               }
+               sort(v.begin(),v.end());
+               int val1 = v[n-1].first;
+               int index = v[n-1].second;
+               int maxV = 0;
+               vector<int> q;
+
+               for(int i=n-1; i>-1; i--){
+                   if(v[i].first == val1){
+                      q.push_back(i);
+                      continue; 
+                   }
+                   break;
+               } 
+               int len = q.size();
+               for(int i=0; i<len; i++){
+                   int val1 = v[q[i]].first;
+                   int index = v[q[i]].second;
+                   
+                   for(int i=n-2; i>-1; i--){
+                   int value = v[i].first+val1;
+                   int index2 = v[i].second;
+                   if(index2 == index){continue;}
+                   vector<int> b = ourmap[index2];
+                   int len = b.size();
+                   for(int j=0; j<len; j++){
+                       if(b[j] == index){
+                          value--;
+                          break; 
+                       }
+                   }
+                   maxV = max(maxV,value);
+                   } 
+               }  
+
+               
+
+               return maxV;
+    }
+};
+
