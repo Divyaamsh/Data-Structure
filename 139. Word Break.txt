@@ -1,0 +1,53 @@
+#include <unordered_map>
+
+class Solution {
+        bool check(string s,int i,int j,string str1,int &size,unordered_map <string,int> &ourmap,vector<vector<int>> &helper){
+                  if(i == size){
+                     if(j == size){
+                        return true;
+                     }
+                     return false;
+                  }
+                  if(helper[i][j] != -1){
+                     return helper[i][j]; 
+                  }  
+
+                  str1 = str1 + s[i];
+                  bool res1 = check(s,i+1,j,str1,size,ourmap,helper);
+                  if(ourmap.count(str1) > 0){
+                     int h = j; 
+                     j = i+1;
+                     str1 = "";
+                     bool res2 = check(s,i+1,j,str1,size,ourmap,helper);
+                     helper[i][h] = (res1 || res2);
+                     return (res1 || res2);                       
+                  }
+
+                  helper[i][j] = res1;
+                  return res1;  
+        } 
+
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+             int sizeS = s.size();
+             int sizeD = wordDict.size();
+             vector<vector<int>> helper(sizeS,vector<int>(sizeS,0)); 
+             for(int i=0; i<sizeS; i++){
+                 for(int j=0; j<sizeS; j++){
+                     helper[i][j] = -1;
+                 }
+             }
+
+             string str1 = "";
+             unordered_map <string,int> ourmap; 
+
+             for(int i=0; i<sizeD; i++){
+                 pair<string,int> p(wordDict[i],1);
+                 ourmap.insert(p);
+             }
+
+             bool res = check(s,0,0,str1,sizeS,ourmap,helper);
+             return res;  
+    }
+};
+
