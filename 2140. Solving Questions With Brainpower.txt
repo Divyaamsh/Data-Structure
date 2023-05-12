@@ -1,0 +1,27 @@
+class Solution {
+        long long check(vector<vector<int>>& questions,int i,int &size,vector<long long> &helper){
+                       if(i >= size){
+                          return 0; 
+                       }
+                       if(helper[i] != 0){
+                          return helper[i]; 
+                       }
+
+                       long long res1 = check(questions,i+1,size,helper);
+                       long long res2 = questions[i][0] + check(questions,i+questions[i][1]+1,size,helper);
+                       helper[i] = max(res1,res2); 
+
+                       return helper[i];
+
+        }  
+
+public:
+    long long mostPoints(vector<vector<int>>& questions) {
+                  int size = questions.size();
+                  vector<long long> helper(size,0);
+                  long long res = check(questions,0,size,helper);  
+    
+                  return res;
+    }
+};
+
