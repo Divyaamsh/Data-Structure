@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool doesValidArrayExist(vector<int>& derived) {
+             int size = derived.size();             
+             vector<int> or1(size,0);
+             vector<int> or2(size,0);
+             or2[0] = 1;
+        
+             for(int i=1; i<size; i++){
+                 or1[i] = derived[i-1] ^ or1[i-1];
+                 or2[i] = derived[i-1] ^ or2[i-1];
+             }
+        
+             if(derived[size-1] ^ or1[size-1] == or1[0] || derived[size-1] ^ or2[size-1] == or2[0]){
+                return true; 
+             }     
+             return false;
+             
+             
+    }
+};class Solution {
+public:
+    bool doesValidArrayExist(vector<int>& derived) {
+             int size = derived.size();             
+             vector<int> or1(size,0);
+             vector<int> or2(size,0);
+             or2[0] = 1;
+        
+             for(int i=1; i<size; i++){
+                 or1[i] = derived[i-1] ^ or1[i-1];
+                 or2[i] = derived[i-1] ^ or2[i-1];
+             }
+        
+             if(derived[size-1] ^ or1[size-1] == or1[0] || derived[size-1] ^ or2[size-1] == or2[0]){
+                return true; 
+             }     
+             return false;
+             
+             
+    }
+};
