@@ -1,0 +1,55 @@
+#include <stack> 
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+               int size = heights.size();  
+               int maxV = 0;
+               stack<pair<int,int>> st1;
+               stack<pair<int,int>> st2;
+               vector<int> v1(size,0);
+               vector<int> v2(size,0); 
+
+               for(int i=0; i<size; i++){
+                   while(st1.size() != 0){
+                        if(st1.top().first < heights[i]){
+                           pair<int,int> p(heights[i],i);
+                           v1[i] = i - st1.top().second;
+                           st1.push(p);
+                           break;
+                        }
+                        st1.pop();
+                   } 
+                   if(st1.size() == 0){
+                      pair<int,int> p(heights[i],i);
+                      st1.push(p);
+                      v1[i] = i+1; 
+                   } 
+               }
+               for(int i=size-1; i>-1; i--){
+                   while(st2.size() != 0){
+                        if(st2.top().first < heights[i]){
+                           pair<int,int> p(heights[i],i);
+                           v2[i] = st2.top().second - i;
+                           st2.push(p);
+                           break;
+                        }
+                        st2.pop();
+                   } 
+                   if(st2.size() == 0){
+                      pair<int,int> p(heights[i],i);
+                      st2.push(p);
+                      v2[i] = size - i; 
+                   } 
+               }
+               for(int i=0; i<size; i++){
+                   int len = v1[i] + v2[i] -1;
+                   int val = len * heights[i];
+                   maxV = max(maxV,val);
+                   maxV = max(maxV,heights[i]);
+               }
+              
+               return maxV;                  
+
+    }
+};
+
