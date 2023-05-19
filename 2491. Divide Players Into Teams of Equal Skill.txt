@@ -1,0 +1,27 @@
+class Solution {
+public:
+    long long dividePlayers(vector<int>& skill) {
+                    int size = skill.size();
+                    sort(skill.begin(),skill.end());
+                    int startIndex = 0;
+                    int endIndex = size-1;
+                    int sum = skill[startIndex]+skill[endIndex];
+                    long long finalans = 0;
+
+                    while(startIndex < endIndex){
+                          if(skill[startIndex] + skill[endIndex] == sum){
+                             long long val1 = skill[startIndex];
+                             long long val2 = skill[endIndex];
+                             finalans = finalans + val1 * val2;
+                             startIndex++;
+                             endIndex--;
+                             continue;
+                          }
+                          return -1;   
+                    }
+                     
+                    return finalans; 
+    
+    }
+};
+
