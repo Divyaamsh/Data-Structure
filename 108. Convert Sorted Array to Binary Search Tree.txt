@@ -1,0 +1,27 @@
+class Solution {
+        TreeNode* check(vector<int>& nums,int startIndex,int endIndex){
+                       if(startIndex > endIndex){
+                          return NULL; 
+                       } 
+                       int mid = (startIndex+endIndex)/2; 
+                       TreeNode* head = new TreeNode(nums[mid]);
+
+                       TreeNode *left = check(nums,startIndex,mid-1);
+                       TreeNode *right = check(nums,mid+1,endIndex);
+                       head->left = left;
+                       head->right = right; 
+                        
+                       return head; 
+        }   
+
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+                    int size = nums.size();
+                    int startIndex = 0;
+                    int endIndex = size-1; 
+
+                    TreeNode* head = check(nums,startIndex,endIndex);
+                    return head;
+
+    }
+};
