@@ -1,0 +1,41 @@
+#include <string> 
+
+class Solution {
+        bool check(string &val,int j,int &i,int q,int ans,int &size){
+                  if(j == size){
+                     if(ans == i && q == 0){
+                        return true; 
+                     }             
+                     return false; 
+                  }  
+            
+                  int g = val[j] - '0';
+                  q = q * 10 + g;
+                  bool res1 = check(val,j+1,i,0,ans+q,size);  
+                  bool res2 = check(val,j+1,i,q,ans,size);
+            
+                  return (res1 || res2);
+            
+        }
+    
+public:
+    int punishmentNumber(int n) {
+                  int ansO = 0;
+                  int i = 37; 
+        
+                  for(int i=1; i<=n; i++){
+                      int val = i * i;
+                      int ans = 0;
+                      int q = 0;
+                      string s = to_string(val);
+                      int size = s.size();
+                      bool k = check(s,0,i,q,ans,size);                       
+                      if(k){
+                         ansO = ansO + val;   
+                      }
+                  }
+        
+                  return ansO;
+    }
+};
+
