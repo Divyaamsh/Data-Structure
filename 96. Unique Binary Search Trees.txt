@@ -1,0 +1,29 @@
+class Solution {
+        int check(int n,vector<int> &helper){ 
+                 if(n == 1 || n == 0){
+                    return 1; 
+                 }
+                 if(helper[n] != 0){
+                    return helper[n]; 
+                 }
+
+                 int res = 0;
+                 for(int i= 0; i<n; i++){
+                     int res1 = check(i,helper);
+                     int res2 = check(n-1-i,helper);
+                     res = res + res1 * res2;
+                 }
+                 helper[n] = res; 
+
+                 return res; 
+        }   
+
+public:
+    int numTrees(int n) {
+           vector<int> helper(n+1,0);         
+           int res = check(n,helper);
+
+           return res;
+    }
+};
+
