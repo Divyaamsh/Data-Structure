@@ -1,0 +1,57 @@
+class Solution {
+        int check1(vector<vector<int>>& grid,int i,int j,unordered_map<int,int> &ourmap){
+                  if(i==-1 || j == -1){
+                     return 0; 
+                  } 
+            
+                  int g = 0;
+                  if(ourmap.count(grid[i][j]) == 0){
+                     g++;
+                     pair<int,int> p(grid[i][j],1);
+                     ourmap.insert(p); 
+                  } 
+            
+                  int res = g + check1(grid,i-1,j-1,ourmap);
+                  return res;
+                  
+                   
+        }
+        int check2(vector<vector<int>>& grid,int i,int j,int sizeC,int sizeR,unordered_map <int,int> &ourmap){
+                  if(i == sizeC || j == sizeR){
+                     return 0; 
+                  }
+                  
+                  int g = 0;
+                  if(ourmap.count(grid[i][j]) == 0){
+                     g++;
+                     pair<int,int> p(grid[i][j],1);
+                     ourmap.insert(p); 
+                  } 
+            
+                  int res = g + check2(grid,i+1,j+1,sizeC,sizeR,ourmap);
+                  return res;
+            
+        }
+    
+public:
+    vector<vector<int>> differenceOfDistinctValues(vector<vector<int>>& grid) {
+                                  int sizeC = grid.size();
+                                  int sizeR = grid[0].size();
+                                  vector<vector<int>> helper(sizeC,vector<int>(sizeR,0));
+        
+                                  for(int i=0; i<sizeC; i++){
+                                      for(int j=0; j<sizeR; j++){
+                                          unordered_map <int,int> ourmap2;
+                                          unordered_map<int,int> ourmap1;
+                                          int left = check1(grid,i-1,j-1,ourmap2);
+                                          int right = check2(grid,i+1,j+1,sizeC,sizeR,ourmap1);
+                                          
+                                          helper[i][j] = abs(left-right);
+                                      }
+                                  }
+        
+                                  return helper;
+        
+    }
+};
+
