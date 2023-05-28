@@ -1,0 +1,15 @@
+class Solution {
+public:
+    string removeTrailingZeros(string num) {
+                 int size = num.size();
+                 int i = size-1;
+        
+                 while(num[i] == '0'){
+                      num.pop_back();
+                      i--;
+                 } 
+                 
+                 return num;
+    }
+};
+
