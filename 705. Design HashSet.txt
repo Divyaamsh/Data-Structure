@@ -1,0 +1,27 @@
+class MyHashSet {
+public:
+    vector<int> table;
+
+    MyHashSet() {
+          vector<int> j(1000001,0);
+          table = j;  
+
+    }
+    
+    void add(int key) {
+            table[key] = 1;
+    }
+    
+    void remove(int key) {
+               table[key] = 0;
+    }
+    
+    bool contains(int key) {
+                 if(table[key]){
+                    return true; 
+                 } 
+                 return false;
+                 
+    }
+};
+
