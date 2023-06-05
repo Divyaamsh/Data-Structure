@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minimizedStringLength(string s) {
+                 stack<char> st;
+                 int size = s.size();
+                 int i = 0;
+                 sort(s.begin(),s.end());
+        
+                 while(i < size){
+                       if(st.size()!= 0 && st.top() == s[i]){
+                          i++;
+                          continue; 
+                       }
+                       st.push(s[i]);
+                       i++;
+                 }
+              
+                 int len = st.size();
+                 return len;  
+        
+    }
+};
+
