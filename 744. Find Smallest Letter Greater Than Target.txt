@@ -1,0 +1,21 @@
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+             int size = letters.size();                 
+             char res = letters[0];
+             vector<char> v; 
+
+             for(int i=0; i<size; i++){
+                 if(letters[i] > target){
+                    v.push_back(letters[i]);
+                 }
+             }
+             sort(v.begin(),v.end());
+             if(v.size() != 0){
+                res = v[0]; 
+             }
+                
+             return res;
+    }
+};
+
