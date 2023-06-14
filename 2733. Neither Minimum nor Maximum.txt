@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findNonMinOrMax(vector<int>& nums) {
+            sort(nums.begin(),nums.end());
+            int size = nums.size();
+        
+            if(size <= 2){
+               return -1; 
+            }
+        
+            return nums[1];
+        
+    }
+};
+
