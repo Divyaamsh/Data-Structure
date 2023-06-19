@@ -1,0 +1,25 @@
+#include <algorithm>
+
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+              int size = piles.size();
+              int sumA = 0;
+              int sumB = 0;
+
+              for(int i=0; i<size; i=i+2){
+                  int maxIndex = max_element(piles.begin(),piles.end())-piles.begin();
+                  sumA = sumA + piles[maxIndex];
+                  piles[maxIndex] = -1;
+                  maxIndex = max_element(piles.begin(),piles.end())-piles.begin();
+                  sumB = sumB + piles[maxIndex]; 
+                  piles[maxIndex] = -1;
+              }
+                
+              if(sumA > sumB){
+                 return true; 
+              }    
+              return false;
+    }
+};
+
