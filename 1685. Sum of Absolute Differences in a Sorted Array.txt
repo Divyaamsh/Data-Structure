@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> getSumAbsoluteDifferences(vector<int>& nums) {
+                    int size = nums.size();        
+                    vector<int> helper = nums;
+                    vector<int> result;
+                    vector<int> l1; 
+                    vector<int> l2;
+                    reverse(helper.begin(),helper.end());
+                    int ans1 = 0;
+                    int ans2 = 0; 
+                    int f = 1;
+
+                    for(int i=0; i<size; i++){
+                        ans1 = ans1 + (nums[i] - nums[0]);   
+                    } 
+                    l1.push_back(ans1);
+                    
+                    while(f < size){
+                          int val = l1[f-1] - ((size-f)*(nums[f] - nums[f-1]));
+                          l1.push_back(val);
+                          f++;
+                    }
+                    f = 1; 
+
+                    for(int i=0; i<size; i++){
+                        ans2 = ans2 + abs(helper[i] - helper[0]);   
+                    } 
+                    l2.push_back(ans2);
+                    
+                    while(f < size){
+                          int val = l2[f-1] - ((size-f)*abs(helper[f] - helper[f-1]));
+                          l2.push_back(val);
+                          f++;
+                    }
+                    reverse(l2.begin(),l2.end());
+                    for(int i=0; i<size; i++){
+                        l2[i] = l2[i] + l1[i]; 
+                    }
+
+                    return l2;                   
+
+    }
+};
+
