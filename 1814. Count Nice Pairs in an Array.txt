@@ -1,0 +1,39 @@
+#include <string>
+#include <unordered_map>
+
+class Solution {
+public:
+    int countNicePairs(vector<int>& nums) {
+             int size = nums.size(); 
+             unordered_map <int,int> ourmap;
+             vector<int> helper;
+
+             for(int i=0; i<size; i++){
+                 int val = nums[i];
+                 string s = to_string(val);
+                 reverse(s.begin(),s.end());
+                 int val1 = stoi(s);
+                 int diff = val - val1;
+
+                 if(ourmap.count(diff) > 0){
+                    ourmap[diff]++;
+                    continue; 
+                 }
+                 pair<int,int> p(diff,1);
+                 ourmap.insert(p); 
+                 helper.push_back(diff);
+             } 
+                            
+             size = helper.size();
+             long long ans = 0;
+             for(int i=0; i<size; i++){
+                 long long q = ourmap[helper[i]];
+                 ans = ans + (q * (q-1))/2;                 
+             }
+             int g = ans % 1000000007;
+
+             return g;  
+
+    }
+};
+
