@@ -1,0 +1,49 @@
+#include <stack>
+
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+              int size = s.size(); 
+              string res = "";  
+              stack<char> st;  
+
+              for(int i=0; i<size; i++){
+                   if(s[i] != '(' && s[i] != ')'){
+                      res.push_back(s[i]);
+                      continue; 
+                   }
+
+                   if(s[i] == ')'){ 
+                      if(st.size() == 0){
+                         continue; 
+                      }
+                      else{
+                         st.pop();
+                         res.push_back(')'); 
+                      }
+                      continue;
+                   }
+                   st.push('(');
+                   res.push_back('('); 
+              }
+
+              int g = st.size();
+
+              if(g <=0){
+                 return res; 
+              }   
+              string res1 = "";
+              int len = res.size();
+              for(int i=len-1; i>-1; i--){
+                  if(res[i] == '(' && g){
+                     g--; 
+                     continue;
+                  }
+                  res1.push_back(res[i]);
+              } 
+              reverse(res1.begin(),res1.end());  
+
+              return res1;              
+    }
+};
+
