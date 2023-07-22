@@ -1,0 +1,59 @@
+class Solution {
+public:
+    string sortVowels(string &s) {
+               int size = s.size();
+               //string help = "";
+               unordered_map <char,int> ourmap;
+               vector <char> help;
+               help.push_back('A');
+               help.push_back('E');
+               help.push_back('I');
+               help.push_back('O');
+               help.push_back('U');
+               help.push_back('a');
+               help.push_back('e');
+               help.push_back('i');
+               help.push_back('o');
+               help.push_back('u');
+        
+               for(int i=0; i<size; i++){
+                   if(s[i] == 'A' || s[i] == 'E' || s[i] == 'O' || s[i] == 'I' || s[i] == 'U' || s[i] == 'a' || s[i] == 'e' || s[i] == 'o' || s[i] == 'i' || s[i] == 'u'){
+                       if(ourmap.count(s[i]) > 0){
+                          ourmap[s[i]]++;
+                          continue; 
+                       }
+                       pair<char,int> p(s[i],1);
+                       ourmap.insert(p);
+                   }
+               }
+               int j = 0;
+               
+        
+               for(int i=0; i<size; i++){
+                   if(s[i] == 'A' || s[i] == 'E' || s[i] == 'O' || s[i] == 'I' || s[i] == 'U' || s[i] == 'a' || s[i] == 'e' || s[i] == 'o' || s[i] == 'i' || s[i] == 'u'){
+                       while(true){
+                            if(ourmap.count(help[j]) > 0){
+                               int val = ourmap[help[j]];
+                               if(val == 0){
+                                  j++;
+                                  continue; 
+                               }
+                               
+                               ourmap[help[j]]--; 
+                               s[i] = help[j];
+                               break; 
+                            }
+                            else{
+                               j++; 
+                            }
+                       }
+                     
+                       
+                   }
+               }
+               
+               return s;
+        
+    }
+};
+
