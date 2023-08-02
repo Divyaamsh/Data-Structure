@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {
+            int sizea = arr.size();
+            int sizep = pieces.size();  
+            int i = 0;
+
+            while(i < sizea){
+                 int value = arr[i];
+                 for(int j=0; j<=sizep; j++){
+                     if(j == sizep){
+                        return false; 
+                     }
+                     if(pieces[j][0] == value){
+                        int len = pieces[j].size();
+                        for(int g = 0 ; g <len; g++){
+                            if(pieces[j][g] == arr[i]){
+                               i++; 
+                               continue; 
+                            }
+                            else{
+                               return false; 
+                            }   
+                        }
+                        break;                          
+                     }  
+                 }                
+            }   
+    
+            return true;
+    }
+};
+

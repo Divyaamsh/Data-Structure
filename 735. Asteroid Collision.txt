@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+                        int size = asteroids.size();
+                        vector<int> answer;
+                        stack<int> st;
+                        bool j = false;  
+
+                        for(int i=0; i<size; i++){
+                            if(st.size() == 0){
+                               st.push(asteroids[i]);
+                               continue;
+                            }  
+
+                            if(st.top() > 0 && asteroids[i] < 0){
+                               j = true;
+                               bool k = false; 
+                               while(st.size() > 0 && st.top() <= abs(asteroids[i]) && asteroids[i] < 0 && st.top() > 0){
+                                     if(st.top() == abs(asteroids[i])){
+                                        k = true;
+                                        st.pop();
+                                        break; 
+                                     } 
+                                     st.pop();
+                               } 
+                               if(k){
+                                  continue; 
+                               }
+                               if(st.size() == 0 || abs(asteroids[i]) > st.top()){
+                                  st.push(asteroids[i]);
+                               }
+                            }
+                            else{
+                               st.push(asteroids[i]); 
+                            }   
+                        }   
+
+                        size = st.size();
+                        for(int i=0; i<size; i++){
+                            answer.push_back(st.top());
+                            st.pop();  
+                        }
+                        if(j){
+                           reverse(answer.begin(),answer.end());
+                           return answer;
+                        }
+                        return asteroids; 
+                         
+    }
+};
+

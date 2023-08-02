@@ -1,0 +1,17 @@
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+                    if(head == NULL){
+                       return NULL; 
+                    }
+                    if(head->val == -99999){
+                       return head; 
+                    }
+
+                    head->val = -99999; 
+                    ListNode* res = detectCycle(head->next);
+                    return res;  
+
+    }
+};
+

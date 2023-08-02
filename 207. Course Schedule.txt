@@ -1,0 +1,57 @@
+class Solution {
+        bool check(unordered_map <int,vector<int>> &ourmap,int i,int k,vector<bool> &visited){
+                  if(visited[i] && i == k){
+                     return false; 
+                  }
+                  if(visited[i]){
+                     return true; 
+                  }
+
+                  visited[i] = true;
+                  bool res = true;
+                  if(ourmap.count(i) > 0){
+                     vector<int> v = ourmap[i];
+                     int len = v.size();     
+
+                     for(int j=0; j<len; j++){
+                         res = res && check(ourmap,v[j],k,visited);  
+                     }
+                  }   
+    
+                  return res; 
+      
+        }  
+         
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+            int size = prerequisites.size();             
+            unordered_map <int,vector<int>> ourmap;
+
+            for(int i=0; i<size; i++){
+                int val2 = prerequisites[i][0];
+                int val1 = prerequisites[i][1];
+
+                if(ourmap.count(val1) > 0){
+                   vector<int> &v = ourmap[val1];
+                   v.push_back(val2); 
+                }
+                else{
+                    vector<int> v;
+                    v.push_back(val2);
+                    pair<int,vector<int>> p(val1,v);
+                    ourmap.insert(p);
+                }  
+            }      
+
+            for(int i=0; i<numCourses; i++){
+                vector<bool> visited(numCourses+1,0);
+                bool res = check(ourmap,i,i,visited); 
+                if(!res){
+                   return false; 
+                }  
+            } 
+
+            return true; 
+    }
+};
+

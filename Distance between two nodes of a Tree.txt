@@ -1,0 +1,67 @@
+bool check(TreeNode<int> *root, int node1, int node2,TreeNode<int> *&root1,bool q1,bool q2){
+          if(root == NULL){
+             return false; 
+          }
+
+          bool res1 = check(root->left,node1,node2,root1,q1,q2);
+          bool res2 = check(root->right,node1,node2,root1,q1,q2);  
+          if(root->val == node1){
+             q1 = true; 
+          }
+          if(root->val == node2){
+             q2 = true; 
+          }   
+
+          if(((res1 || res2) && (q1 || q2)) || (res1 && res2)){
+             if(root1 == NULL){
+                root1 = root; 
+             } 
+          }  
+
+          return (res1 || res2 || q1 || q2);
+          
+}
+
+int check1(TreeNode<int> *root, int node1){
+          if(root == NULL){
+             return -99999; 
+          }
+          if(root->val == node1){
+             return 0; 
+          } 
+
+          int res1 = 1 + check1(root->left,node1);
+          int res2 = 1 + check1(root->right,node1);
+
+          return max(res1,res2);
+           
+}
+
+int findDistanceBetweenNodes(TreeNode<int> *root, int node1, int node2){
+        TreeNode<int> *q = NULL;
+        bool q1 = false;
+        bool q2 = false;
+        if(root != NULL && root->val == node1 && root->val == node2){
+           return 0; 
+        }
+
+        bool res = check(root,node1,node2,q,q1,q2);
+        if((q == NULL)){
+           return -1; 
+        }
+
+        if(q->val == node1 || q->val == node2){    
+           if(q->val == node1){
+              int res = check1(q,node2);
+              return res; 
+           }
+           int res = check1(q,node1);
+           return res;
+        }
+        int res1 = check1(q,node1);
+        int res2 = check1(q,node2);
+
+        return (res1+res2);
+  
+}
+

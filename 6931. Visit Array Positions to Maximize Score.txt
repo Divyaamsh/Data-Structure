@@ -1,0 +1,49 @@
+class Solution {
+        long long check(vector<int>& nums, int i,int &size,int &x,int g,vector<vector<long long>> &helper){
+                       if(i == size){
+                          return 0; 
+                       }
+                       if(helper[i][g] != -99999){
+                          return helper[i][g]; 
+                       }
+            
+                       long long res1 = check(nums,i+1,size,x,g,helper);
+                       long long res2 = 0;
+                       if(nums[i] %2 == 0 && g == 0){
+                          res2 = nums[i] + check(nums,i+1,size,x,0,helper);                              
+                       }
+                       else if(nums[i] %2 != 0 && g == 0){
+                          res2 = nums[i] + check(nums,i+1,size,x,1,helper) - x; 
+                       }
+                       else if(nums[i] %2 == 1 && g == 1){
+                          res2 = nums[i] + check(nums,i+1,size,x,1,helper); 
+                       }
+                       else if(nums[i] %2 != 1 && g == 1){
+                          res2 = nums[i] + check(nums,i+1,size,x,0,helper) - x; 
+                       }              
+                       helper[i][g] = max(res1,res2);  
+            
+                       return max(res1,res2);  
+            
+        }
+    
+    public:
+    long long maxScore(vector<int>& nums, int x) {
+                 long long ans = 0;  
+                 int size = nums.size();
+                 int g = 0;
+                 vector<vector<long long>> helper(size,vector<long long>(2,0));
+                 for(int i=0; i<size; i++){
+                     helper[i][0] = -99999;
+                     helper[i][1] = -99999;
+                 } 
+        
+                 if(nums[0] % 2 != 0){
+                     g = 1; 
+                 }
+        
+                 ans = nums[0] + check(nums,1,size,x,g,helper);
+                 return ans;          
+    }
+};
+
