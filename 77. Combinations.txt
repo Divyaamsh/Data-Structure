@@ -1,0 +1,31 @@
+class Solution {
+        void check(vector<int> &helper,int i,int n,int k,vector<int> v,vector<vector<int>> &result){
+                  if(k == 0){
+                     result.push_back(v);
+                     return; 
+                  }
+
+                  for(int h=i; h<n; h++){
+                      vector<int> b = v;
+                      b.push_back(helper[h]);
+                      check(helper,h+1,n,k-1,b,result);
+                  }                     
+
+        }
+
+public:
+    vector<vector<int>> combine(int n, int k) {
+                               vector<vector<int>> result;       
+                               vector<int> helper;
+
+                               for(int i=1; i<=n; i++){
+                                   helper.push_back(i);
+                               }
+                               vector<int> v;
+
+                               check(helper,0,n,k,v,result); 
+                               return result;
+
+    }
+};
+

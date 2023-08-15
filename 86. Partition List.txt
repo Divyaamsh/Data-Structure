@@ -1,0 +1,35 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+                 ListNode* head1 = head;
+                 ListNode* head2 = head;
+                 int size = 0;
+                 int i = 0;
+                 vector<int> helperS;
+                 vector<int> helperL;
+
+                 while(head1 != NULL){
+                      if(head1->val < x){
+                         helperS.push_back(head1->val);
+                      }
+                      else{
+                         helperL.push_back(head1->val); 
+                         size++; 
+                      }   
+                      head1 = head1 -> next;
+                 }                  
+                 for(int i=0; i<size; i++){
+                     helperS.push_back(helperL[i]);
+                 }
+
+                 while(head2 != NULL){
+                      head2 -> val = helperS[i];
+                      head2 = head2 -> next;
+                      i++;
+                 }
+
+                 return head; 
+                 
+    }
+};
+
