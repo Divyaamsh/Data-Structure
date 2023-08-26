@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumSum(int n, int k) {
+               int sum = 0;
+               int i =1;
+               unordered_map<int,int> ourmap;
+     
+               while(n--){
+                    if(ourmap.count(i) > 0){
+                       n++;
+                       i++;
+                       continue; 
+                    }           
+                    sum = sum + i;
+                    int val = abs(k - i);
+                    pair<int,int> p(val,1);
+                    ourmap.insert(p);
+                    i++;
+               }
+               return sum;   
+        
+    }       
+}; 
+
